@@ -1,0 +1,26 @@
+body {
+    background-color: #f8f9fa;
+}
+
+h2 {
+    color: #343a40;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+form .form-label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: black !important;
+    border-color: black !important;
+    color: white; /* Ensure text is visible */
+}
+
+.readonly {
+    background-color: #cfd9e2;
+}

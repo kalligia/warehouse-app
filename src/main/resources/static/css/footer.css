@@ -1,0 +1,12 @@
+:root {
+    --light-color: #edf3ef; /* Light Background */
+}
+
+.footer {
+    background-color: var(--light-color);
+    padding-top: 25px;
+    padding-left: 10rem;
+    text-align: left;
+    min-height: 15vh;
+
+}

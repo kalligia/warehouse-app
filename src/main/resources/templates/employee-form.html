@@ -1,0 +1,182 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add an Employee</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main-form.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+
+</head>
+<body>
+    <div th:if="${errorMessage}" class="error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <div th:replace="~{fragments/header :: headerFragment}"></div>
+
+
+    <main class="container mt-5">
+        <div th:replace="~{fragments/sidebar :: sidebarFragment}"></div>
+        <h2 class="text-center mb-4">Add Employee</h2>
+    <form method="POST" th:object="${employeeInsertDTO}" th:action="@{/warehouse/employees/add}">
+            <div class="mb-3">
+                <label for="firstname">Firstname:</label><br>
+                <input type="text" id="firstname" th:field="*{firstname}"
+                       th:classappend="${#fields.hasErrors('firstname')} ? 'error'" />
+                <div th:if="${#fields.hasErrors('firstname')}">
+                    <p th:errors="*{firstname}"></p> dto error message
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="lastname">Lastname:</label><br>
+                <input type="text" id="lastname" th:field="*{lastname}"
+                       th:classappend="${#fields.hasErrors('lastname')} ? 'error'" />
+                <div th:if="${#fields.hasErrors('lastname')}">
+                    <p th:errors="*{lastname}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="amka">Amka: </label><br>
+                <input type="text" id="amka" th:field="*{amka}"
+                       th:classappend="${#fields.hasErrors('amka')} ? 'error'" />
+                <div th:if="${#fields.hasErrors('amka')}">
+                    <p th:errors="*{amka}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email">Email: </label><br>
+                <input type="email" id="email" th:field="*{email}"
+                       th:classappend="${#fields.hasErrors('email')} ? 'email'" />
+                <div th:if="${#fields.hasErrors('email')}">
+                    <p th:errors="*{email}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phoneNumber">Phone Number: </label><br>
+                <input type="tel" id="phoneNumber" th:field="*{phoneNumber}"
+                       th:classappend="${#fields.hasErrors('phoneNumber')} ? 'phoneNumber'" />
+                <div th:if="${#fields.hasErrors('phoneNumber')}">
+                    <p th:errors="*{phoneNumber}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="title">Job Title:</label><br>
+                <select name="" id="title" th:field="*{titleId}">
+                    <option value="" selected>Select Job Title</option>
+                    <option th:each="job_title : ${jobTitles}" th:value="${job_title.id}" th:text="${job_title.name}"></option>
+                </select>
+            </div>
+
+
+        <div class="row">
+            <button type="submit" class="btn btn-primary w-100">Add Employee</button>
+        </div>
+
+    </form>
+    </main>
+    <div th:replace="~{fragments/footer :: footerFragment}"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${employee?.id != null ? 'Edit Employee' : 'Add Employee'}"></title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/main-form.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+</head>
+<body class="d-flex flex-column vh-100">
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: headerFragment}"></div>
+
+<!-- Main Layout -->
+<div class="container-fluid flex-grow-1">
+    <div class="row h-100">
+
+        <!-- Sidebar -->
+        <aside class="col-3 p-0 bg-dark">
+            <div th:replace="~{fragments/sidebar :: sidebarFragment}"></div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="col-9 bg-light p-4">
+            <h2 class="text-center mb-4" th:text="${employee?.id != null ? 'Edit Employee' : 'Add Employee'}"></h2>
+            <form method="POST" th:object="${employee}" th:action="${employee?.id != null ? '/warehouse/employees/edit/' + employee.id : '/warehouse/employees/add'}">
+                <div class="mb-3">
+                    <label for="firstname">Firstname:</label>
+                    <input type="text" id="firstname" class="form-control" th:field="*{firstname}"
+                           th:classappend="${#fields.hasErrors('firstname')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('firstname')}" th:text="${#fields.errors('firstname')}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="lastname">Lastname:</label>
+                    <input type="text" id="lastname" class="form-control" th:field="*{lastname}"
+                           th:classappend="${#fields.hasErrors('lastname')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('lastname')}" th:text="${#fields.errors('lastname')}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="amka">Amka:</label>
+                    <input type="text" id="amka" class="form-control" th:field="*{amka}"
+                           th:classappend="${#fields.hasErrors('amka')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('amka')}" th:text="${#fields.errors('amka')}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" class="form-control" th:field="*{email}"
+                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="tel" id="phoneNumber" class="form-control" th:field="*{phoneNumber}"
+                           th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('phoneNumber')}" th:text="${#fields.errors('phoneNumber')}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="title">Job Title:</label>
+                    <select id="title" class="form-select" th:field="*{titleId}">
+                        <option value="" selected>Select Job Title</option>
+                        <option th:each="job_title : ${jobTitles}" th:value="${job_title.id}" th:text="${job_title.name}"></option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100" th:text="${employee?.id != null ? 'Update Employee' : 'Add Employee'}"></button>
+
+
+            </form>
+        </main>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-black text-center">
+    <div th:replace="~{fragments/footer :: footerFragment}"></div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

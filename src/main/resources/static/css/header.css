@@ -1,0 +1,68 @@
+:root {
+    --color-white: #fff;
+    --color-blue-300: rgb(0, 101, 179);
+    --color-forest-green: #2F855A;
+    --color-dark: #000;
+}
+
+.outer {
+    width: 100vw;
+    height: 90px;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--color-forest-green);
+    color: var(--color-white);
+    font-family: Arial, sans-serif;
+}
+
+.items {
+    width: 60%;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    margin-left: 15px;
+}
+
+/*.logout {*/
+/*    width: 40%;*/
+/*    display: flex;*/
+/*    justify-content:flex-end;*/
+/*    align-items: center;*/
+/*}*/
+
+
+/*.logout a {*/
+/*    color: var(--color-dark);*/
+/*    margin-right: 20px;*/
+/*    text-decoration: none;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.logout > span {*/
+/*    margin-right: 15px;*/
+/*}*/
+
+/*.line {*/
+/*    background-color: var(--color-blue-300);*/
+/*    height: 8px;*/
+/*}*/
+
+.title {
+    font-size: 1.8rem;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+}
+
+.items img {
+    vertical-align: middle;
+}
+
+/*.btn-outline-light:hover {*/
+/*    background-color: #004d1f; !* Very dark green *!*/
+/*    border-color: #004d1f; !* Dark green border on hover *!*/
+/*    color: white; !* White text on hover *!*/
+/*}*/
+

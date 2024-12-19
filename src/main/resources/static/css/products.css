@@ -1,0 +1,58 @@
+.container {
+    margin-left: 250px; /* Offset main content by sidebar width */
+    padding: 20px;
+    width: calc(100% - 250px); /* Adjust main content width dynamically */
+    overflow: auto;
+}
+
+.product-card {
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.product-card img {
+    width: 100%; /* Full width for consistent image display */
+    height: 200px;
+    object-fit: cover; /* Crop to fit within specified height */
+}
+
+.product-card-body {
+    text-align: center;
+    padding: 10px;
+}
+
+.product-card h5 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/*.product-card .price {*/
+/*    font-size: 1.2rem;*/
+/*    color: #28a745;*/
+/*    font-weight: bold;*/
+/*}*/
+
+.product-card .btn {
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background-color: black !important;
+    border-color: black !important;
+    color: white; /* Ensure text is visible */
+}
+
+/*@media screen and (max-width: 768px) {*/
+/*    .container {*/
+/*        margin-left: 0; !* No offset on small screens *!*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .product-card img {*/
+/*        height: auto; !* Allow flexible image height on smaller screens *!*/
+/*    }*/
+/*}*/
+
