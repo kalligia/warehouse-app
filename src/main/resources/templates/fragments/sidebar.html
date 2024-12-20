@@ -37,10 +37,11 @@
                 <li><a class="nav-link text-white" th:href="@{/warehouse/employees/add}">Add Employee</a></li>
             </ul>
         </li>
+
         <!-- Home -->
         <li class="nav-item">
-            <a class="nav-link text-white" th:href="@{/logout}" sec:authorize="isAuthenticated()">
-                <i class="bi bi-box-arrow-right"></i> Logout
+           <a class="nav-link text-white" th:href="@{/logout}" > <!-- sec:authorize="isAuthenticated()" -->
+                <i class="bi bi-person"></i> Logout
             </a>
         </li>
     </ul>

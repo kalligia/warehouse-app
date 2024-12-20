@@ -5,7 +5,8 @@ import gr.giatzi.warehouseapp.model.Employee;
 import gr.giatzi.warehouseapp.model.Product;
 import gr.giatzi.warehouseapp.service.UploadService;
 import org.springframework.stereotype.Component;
-
+import gr.giatzi.warehouseapp.model.User;
+import gr.giatzi.warehouseapp.core.enums.Role;
 import java.io.IOException;
 
 @Component
@@ -75,4 +76,10 @@ public class Mapper {
                 employee.getLastname(), employee.getEmail(), employee.getPhoneNumber(),
                  employee.getAmka());
     }
+
+    public User mapToUserEntity(UserInsertDTO userInsertDTO) {
+        return new User(null, userInsertDTO.getUsername(),
+                userInsertDTO.getPassword(), Role.valueOf(userInsertDTO.getRole().toUpperCase()));
+    }
+
 }
