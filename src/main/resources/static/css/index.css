@@ -1,0 +1,6 @@
+main {
+    background-image: url('../img/index-photo.jpg'); /* Διόρθωσε τη διαδρομή */
+    background-size: cover;
+   /* background-position: center; */
+    background-repeat: no-repeat;
+}
