@@ -32,8 +32,6 @@ public class EmployeeUpdateDTO {
 
     private String phoneNumber;
 
-    @NotNull(message = "Amka can not be null.")
-    private String amka;
 
 
 }

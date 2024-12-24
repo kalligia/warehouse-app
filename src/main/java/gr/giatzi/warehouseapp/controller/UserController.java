@@ -26,7 +26,7 @@ public class UserController {
     @GetMapping("/users/register")
     public String getUserForm(Model model) {
         model.addAttribute("userInsertDTO", new UserInsertDTO());
-        return "user-form";
+        return "register";
     }
 
     @PostMapping("/users/register")
@@ -36,7 +36,7 @@ public class UserController {
                              Model model
     ) {
         if (bindingResult.hasErrors()) {
-            return "user-form";
+            return "register";
         }
 
         User user = mapper.mapToUserEntity(userInsertDTO);

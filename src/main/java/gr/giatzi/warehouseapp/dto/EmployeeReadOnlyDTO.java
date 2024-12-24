@@ -20,5 +20,5 @@ public class EmployeeReadOnlyDTO {
     private String phoneNumber;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String amka;
+
 }

@@ -119,6 +119,12 @@
         <!-- Main Content -->
         <main class="col-9 bg-light p-4">
             <h2 class="text-center mb-4" th:text="${employee?.id != null ? 'Edit Employee' : 'Add Employee'}"></h2>
+
+            <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${successMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <form method="POST" th:object="${employee}" th:action="${employee?.id != null ? '/warehouse/employees/edit/' + employee.id : '/warehouse/employees/add'}">
                 <div class="mb-3">
                     <label for="firstname">Firstname:</label>
@@ -132,13 +138,6 @@
                     <input type="text" id="lastname" class="form-control" th:field="*{lastname}"
                            th:classappend="${#fields.hasErrors('lastname')} ? 'is-invalid'">
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('lastname')}" th:text="${#fields.errors('lastname')}"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="amka">Amka:</label>
-                    <input type="text" id="amka" class="form-control" th:field="*{amka}"
-                           th:classappend="${#fields.hasErrors('amka')} ? 'is-invalid'">
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('amka')}" th:text="${#fields.errors('amka')}"></div>
                 </div>
 
                 <div class="mb-3">

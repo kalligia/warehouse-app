@@ -29,7 +29,14 @@
         <!-- Main Content -->
         <main class="col-9 bg-light p-4">
             <h2 class="text-center mb-4" th:text="${'Add Product'}"></h2>
-            <form method="POST" th:object="${product}" th:action="${'/warehouse/products/add'}" enctype="multipart/form-data">
+
+            <!-- Success Alert -->
+<!--            <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">-->
+<!--                <span th:text="${successMessage}"></span>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+<!--            </div>-->
+
+            <form method="POST" th:object="${productInsertDTO}" th:action="${'/warehouse/products/add'}" enctype="multipart/form-data">
                 <div class="mb-3">
 
                     <div class="mb-3">
@@ -41,7 +48,7 @@
 
                     <div class="mb-3">
                         <label for="type">Product Type:</label>
-                        <select id="type" class="form-select" th:field="*{typeId}">
+                        <select id="type" class="form-select" th:field="*{type}">
                             <option value="" selected>Select Product Type</option>
                             <option th:each="type : ${productTypes}" th:value="${type.id}" th:text="${type.name}"></option>
                         </select>
@@ -56,7 +63,7 @@
 
                     <div class="mb-3">
                         <label for="material">Material:</label>
-                        <select id="material" class="form-select" th:field="*{materialId}">
+                        <select id="material" class="form-select" th:field="*{material}">
                             <option value="" selected>Select Material</option>
                             <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.name}"></option>
                         </select>
@@ -77,7 +84,7 @@
 
                 <button type="submit" class="btn btn-primary w-100" th:text="${'Add Product'}"></button>
 
-
+                </div>
             </form>
         </main>
     </div>

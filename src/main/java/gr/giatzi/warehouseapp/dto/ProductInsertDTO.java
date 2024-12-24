@@ -14,16 +14,20 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductInsertDTO {
 
     @NotNull(message = "Product type can not ne null.")
-    private Long typeId;
+    private Long type;
 
+    @NotNull(message = "Product type can not ne null.")
     private String name;
 
     @NotNull(message = "Color can not ne null.")
     private String color;
 
+    @NotNull(message = "Product type can not ne null.")
     private Long quantity;
 
-    private Long materialId;
+    @NotNull(message = "Product type can not ne null.")
+    private Long material;
 
+    @NotNull(message = "Product type can not ne null.")
     private MultipartFile photo;
 }

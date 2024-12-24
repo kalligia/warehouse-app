@@ -30,8 +30,6 @@ public class Employee extends AbstractEntity{
 
     private String email;
 
-    private String amka;
-
     @Column(name = "phone_number")
     private String phoneNumber;
 

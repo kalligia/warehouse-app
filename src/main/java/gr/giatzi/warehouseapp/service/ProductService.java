@@ -7,7 +7,9 @@ import gr.giatzi.warehouseapp.dto.ProductReadOnlyDTO;
 import gr.giatzi.warehouseapp.dto.ProductUpdateDTO;
 import gr.giatzi.warehouseapp.mapper.Mapper;
 import gr.giatzi.warehouseapp.model.Product;
+import gr.giatzi.warehouseapp.model.static_data.Material;
 import gr.giatzi.warehouseapp.model.static_data.ProductType;
+import gr.giatzi.warehouseapp.repository.MaterialRepository;
 import gr.giatzi.warehouseapp.repository.ProductRepository;
 import gr.giatzi.warehouseapp.repository.ProductTypeRepository;
 import jakarta.transaction.Transactional;
@@ -24,6 +26,7 @@ public class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
     private final ProductTypeRepository productTypeRepository;
+    private final MaterialRepository materialRepository;
     private final Mapper mapper;
     //private final UploadService uploadService;
 
@@ -37,14 +40,18 @@ public class ProductService implements IProductService {
 
       //  product.setPhotoName(fileName);
 
-        ProductType pt = productTypeRepository.findById(productInsertDTO.getTypeId())
+        ProductType pt = productTypeRepository.findById(productInsertDTO.getType())
                 .orElseThrow(() -> new EntityInvalidArgumentException("ProductType", "Invalid product type id"));
 
         product.setType(pt);
 
+        Material material = materialRepository.findById(productInsertDTO.getMaterial())
+                .orElseThrow(() -> new EntityInvalidArgumentException("Material", "Invalid material id"));
+
+        product.setMaterial(material);
+
         return productRepository.save(product);
 
-        //TODO other methods like update and delete
     }
 
     @Override
@@ -55,8 +62,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product findById(Long id) {
-        return productRepository.findByProdId(id);
+    public ProductReadOnlyDTO findById(Long id) {
+        return  mapper.mapToProductReadOnlyDTO(productRepository.findByProdId(id));
     }
 
    // @Override

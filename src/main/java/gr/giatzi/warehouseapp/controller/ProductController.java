@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,17 +39,15 @@ public class ProductController {
 
     @GetMapping("/products/add")
     public String getProductForm(Model model) {
-        model.addAttribute("product", new ProductInsertDTO());
+        model.addAttribute("productInsertDTO", new ProductInsertDTO());
         model.addAttribute("materials", materialService.findAllMaterials());
         model.addAttribute("productTypes", productTypeService.findAllProductTypes());
         return "product-form";
     }
 
     @PostMapping("/products/add")
-    public String saveProduct(@Valid @ModelAttribute("product")
-                               ProductInsertDTO productInsertDTO,
-                               BindingResult bindingResult,
-                               Model model) {
+    public String saveProduct(@Valid @ModelAttribute("productInsertDTO") ProductInsertDTO productInsertDTO,
+                               BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         Product savedProduct ;
 
         if (bindingResult.hasErrors()) {
@@ -57,6 +56,7 @@ public class ProductController {
 
         try {
             savedProduct = productService.saveProduct(productInsertDTO);
+            redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
             LOGGER.info("Product with id {} added", savedProduct.getProdId());
         } catch (EntityInvalidArgumentException e) {
             LOGGER.error("Product not added");
@@ -65,9 +65,11 @@ public class ProductController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+//
+//        ProductReadOnlyDTO productReadOnlyDTO = mapper.mapToProductReadOnlyDTO(savedProduct);
+//        model.addAttribute("product", productReadOnlyDTO);
+//        redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
 
-        ProductReadOnlyDTO productReadOnlyDTO = mapper.mapToProductReadOnlyDTO(savedProduct);
-        model.addAttribute("product", savedProduct);
         return "redirect:/warehouse/products";
 
     }
@@ -86,16 +88,15 @@ public class ProductController {
 
     @GetMapping("/products/details/{id}")
     public String getProductForm(@PathVariable Long id, Model model) {
-        Product product = productService.findById(id);
-        model.addAttribute("product", product);
+        ProductReadOnlyDTO productReadOnlyDTO = productService.findById(id);
+        model.addAttribute("product", productReadOnlyDTO);
         return "product-details";
     }
 
     @PostMapping("/products/edit/{id}")
-    public String updateProducts(@Valid @ModelAttribute("product")
-                                     ProductUpdateDTO productUpdateDTO,
+    public String updateProducts(@Valid @ModelAttribute("product") ProductUpdateDTO productUpdateDTO,
                                  BindingResult bindingResult,
-                                 Model model
+                                 Model model, RedirectAttributes redirectAttributes
                                  ) {
         Product savedProduct ;
 
@@ -105,14 +106,15 @@ public class ProductController {
 
         try {
             savedProduct = productService.updateProduct(productUpdateDTO);
-          //  LOGGER.info("Employee with id {} added", savedEmployee.getEmpId());
+            redirectAttributes.addFlashAttribute("successMessage", "Quantity edited successfully!");
+            //  LOGGER.info("Employee with id {} added", savedEmployee.getEmpId());
         } catch (EntityNotFoundException | EntityInvalidArgumentException e) {
         //    LOGGER.error("Employee with amka {} not added", employeeUpdateDTO.getAmka());
             model.addAttribute("errorMessage", e.getMessage());
             return "product-details"; }
 
-        ProductReadOnlyDTO productReadOnlyDTO = mapper.mapToProductReadOnlyDTO(savedProduct);
-        model.addAttribute("product", savedProduct);
+//        ProductReadOnlyDTO productReadOnlyDTO = mapper.mapToProductReadOnlyDTO(savedProduct);
+//        model.addAttribute("product", savedProduct);
         return "redirect:/warehouse/products/details/{id}";
     }
 

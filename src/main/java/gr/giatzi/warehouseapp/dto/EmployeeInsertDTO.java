@@ -29,9 +29,6 @@ public class EmployeeInsertDTO {
     //@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n", message = "Wrong email format.")
     private String email;
 
-    @NotNull(message = "Amka can not be null.")
-    private String amka;
-
     private String phoneNumber;
 
 }

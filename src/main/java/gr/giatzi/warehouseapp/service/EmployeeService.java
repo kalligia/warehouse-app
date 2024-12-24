@@ -31,10 +31,10 @@ public class EmployeeService implements IEmployeeService{
     public Employee saveEmployee(EmployeeInsertDTO employeeInsertDTO)
             throws EntityAlreadyExistsException, EntityInvalidArgumentException {
 
-        if (employeeRepository.findByAmka(employeeInsertDTO.getAmka()).isPresent()) {
-            throw new EntityAlreadyExistsException("Employee", "Employee with amka: "
-                    + employeeInsertDTO.getAmka() + " already exists.");
-        }
+//        if (employeeRepository.findByAmka(employeeInsertDTO.getAmka()).isPresent()) {
+//            throw new EntityAlreadyExistsException("Employee", "Employee with amka: "
+//                    + employeeInsertDTO.getAmka() + " already exists.");
+//        }
 
         Employee employee = mapper.mapToEmployeeEntity(employeeInsertDTO);
 
@@ -45,7 +45,6 @@ public class EmployeeService implements IEmployeeService{
 
         return employeeRepository.save(employee);
 
-        //TODO other methods like update and delete
     }
 
     @Override

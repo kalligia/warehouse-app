@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/warehouse")
@@ -42,7 +43,7 @@ public class EmployeeController {
     public String saveEmployee(@Valid @ModelAttribute("employee")
                               EmployeeInsertDTO employeeInsertDTO,
                               BindingResult bindingResult,
-                              Model model) {
+                              Model model, RedirectAttributes redirectAttributes) {
        Employee savedEmployee ;
 
         if (bindingResult.hasErrors()) {
@@ -51,16 +52,18 @@ public class EmployeeController {
 
         try {
             savedEmployee = employeeService.saveEmployee(employeeInsertDTO);
+            redirectAttributes.addFlashAttribute("successMessage", "Employee added successfully!");
+
             LOGGER.info("Employee with id {} added", savedEmployee.getEmpId());
         } catch (EntityAlreadyExistsException | EntityInvalidArgumentException e) {
-            LOGGER.error("Employee with amka {} not added", employeeInsertDTO.getAmka());
+         //   LOGGER.error("Employee with amka {} not added", employeeInsertDTO.getAmka());
             model.addAttribute("errorMessage", e.getMessage());
             return "employee-form";
         }
 
-
-        EmployeeReadOnlyDTO employeeReadOnlyDTO = mapper.mapToEmployeeReadOnlyDTO(savedEmployee);
-        model.addAttribute("employee", savedEmployee);
+//
+//        EmployeeReadOnlyDTO employeeReadOnlyDTO = mapper.mapToEmployeeReadOnlyDTO(savedEmployee);
+//        model.addAttribute("employee", savedEmployee);
         return "redirect:/warehouse/employees";
 
     }
@@ -83,8 +86,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/delete/{id}")
-    public String deleteEmployee(@PathVariable Long id) throws EntityNotFoundException {
+    public String deleteEmployee(@PathVariable Long id, RedirectAttributes redirectAttributes)
+            throws EntityNotFoundException {
         employeeService.deleteEmployee(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Employee deleted successfully!");
         return "redirect:/warehouse/employees";
     }
 
@@ -101,7 +106,7 @@ public class EmployeeController {
     public String updateEmployee(@Valid @ModelAttribute("employee")
                                EmployeeUpdateDTO employeeUpdateDTO,
                                BindingResult bindingResult,
-                               Model model) {
+                               Model model, RedirectAttributes redirectAttributes) {
         Employee savedEmployee ;
 
         if (bindingResult.hasErrors()) {
@@ -110,15 +115,16 @@ public class EmployeeController {
 
         try {
             savedEmployee = employeeService.updateEmployee(employeeUpdateDTO);
+            redirectAttributes.addFlashAttribute("successMessage", "Employee edited successfully!");
             LOGGER.info("Employee with id {} added", savedEmployee.getEmpId());
         } catch (EntityNotFoundException | EntityInvalidArgumentException e) {
-            LOGGER.error("Employee with amka {} not added", employeeUpdateDTO.getAmka());
+        //    LOGGER.error("Employee with amka {} not added", employeeUpdateDTO.getAmka());
             model.addAttribute("errorMessage", e.getMessage());
             return "employee-form"; }
 
         EmployeeReadOnlyDTO employeeReadOnlyDTO = mapper.mapToEmployeeReadOnlyDTO(savedEmployee);
         model.addAttribute("employee", savedEmployee);
-        return "redirect:/warehouse/employees";
+        return "redirect:/warehouse/employees/edit/{id}";
     }
 }
 

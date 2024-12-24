@@ -38,8 +38,7 @@ public class Mapper {
 
     public ProductReadOnlyDTO mapToProductReadOnlyDTO(Product product) {
         return new ProductReadOnlyDTO(product.getProdId(), product.getName(), product.getType().getName(), product.getMaterial().getName(),
-                product.getColor(),product.getQuantity(), product.getPhotoName(), product.getCreatedAt(),
-                product.getUpdatedAt());
+                product.getColor(),product.getQuantity(), product.getPhotoName());
     }
 
     public ProductUpdateDTO mapToProductUpdateDTO(Product product) {
@@ -68,13 +67,12 @@ public class Mapper {
     public EmployeeReadOnlyDTO mapToEmployeeReadOnlyDTO(Employee employee) {
         return new EmployeeReadOnlyDTO(employee.getEmpId(), employee.getTitle().getName(), employee.getFirstname(),
                 employee.getLastname(), employee.getEmail(), employee.getPhoneNumber(),
-                 employee.getCreatedAt(), employee.getUpdatedAt(), employee.getAmka());
+                 employee.getCreatedAt(), employee.getUpdatedAt());
     }
 
     public EmployeeUpdateDTO mapToEmployeeUpdateDTO(Employee employee) {
         return new EmployeeUpdateDTO(employee.getEmpId(), employee.getTitle().getId(), employee.getFirstname(),
-                employee.getLastname(), employee.getEmail(), employee.getPhoneNumber(),
-                 employee.getAmka());
+                employee.getLastname(), employee.getEmail(), employee.getPhoneNumber());
     }
 
     public User mapToUserEntity(UserInsertDTO userInsertDTO) {

@@ -17,7 +17,7 @@ public interface IProductService {
 
     public List<ProductReadOnlyDTO> getAllProducts();
 
-    Product findById(Long id);
+    ProductReadOnlyDTO findById(Long id);
 
     Product updateProduct(ProductUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException;
 

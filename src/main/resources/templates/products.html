@@ -29,6 +29,12 @@
         <!-- Main Content -->
         <main class="col-9 bg-light p-4">
             <h1 class="text-center mb-4">Product List</h1>
+
+            <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${successMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <div class="row">
                 <!-- Loop through products using Thymeleaf -->
                 <div class="col-md-4" th:each="product : ${products}">
