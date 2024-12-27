@@ -18,6 +18,4 @@ public class ProductReadOnlyDTO {
     private String color;
     private Long quantity;
     private String photoName;
-//    private LocalDateTime createdAt;
-//    private LocalDateTime updatedAt;
 }

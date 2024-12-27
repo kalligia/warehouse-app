@@ -1,13 +1,10 @@
 table {
-    /*display: inline-block;*/
     width: 90vw;
     margin-top: 40px;
     border: 1px solid black;
-    /*border-collapse: collapse;*/
 }
 
 table thead th {
-    background: var(--dark-blue);
     color: #fff;
     border: 1px solid black;
 }

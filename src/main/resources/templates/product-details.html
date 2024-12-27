@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${product.name}"></title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" th:href="@{/css/main-form.css}">
@@ -14,56 +13,15 @@
 </head>
 <body class="d-flex flex-column vh-100">
 
-<!-- Header -->
 <div th:replace="~{fragments/header :: headerFragment}"></div>
 
-<!-- Main Layout -->
 <div class="container-fluid flex-grow-1">
     <div class="row h-100">
 
-        <!-- Sidebar -->
         <aside class="col-3 p-0 bg-dark">
             <div th:replace="~{fragments/sidebar :: sidebarFragment}"></div>
         </aside>
 
-        <!-- Main Content -->
-<!--        <main class="col-9 bg-light p-4">-->
-<!--            <h2 class="text-center mb-4" th:text="${'Product Details'}"></h2>-->
-<!--            <form method="POST" th:object="${product}" th:action="${'/warehouse/products/edit'}" enctype="multipart/form-data">-->
-<!--                <div class="mb-3">-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label for="name">Name:</label>-->
-<!--                        <input type="text" id="name" class="form-control" th:field="*{name}" readonly>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label for="type">Product Type:</label>-->
-<!--                        <input type="type" id="type" class="form-control" th:field="*{type}" readonly>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label for="color">Color:</label>-->
-<!--                        <input type="text" id="color" class="form-control" th:field="*{color}" readonly>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label for="material">Material:</label>-->
-<!--                        <input type="text" id="material" class="form-control" th:field="*{material}" readonly>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label for="quantity">Quantity:</label>-->
-<!--                        <input type="number" id="quantity" class="form-control" th:field="*{quantity}"-->
-<!--                               th:classappend="${#fields.hasErrors('quantity')} ? 'is-invalid'">-->
-<!--                        <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}" th:text="${#fields.errors('quantity')}"></div>-->
-<!--                    </div>-->
-
-<!--                    <button type="submit" class="btn btn-primary w-100" th:text="${'Edit Quantity'}"></button>-->
-
-<!--                </div>-->
-<!--            </form>-->
-<!--        </main>-->
         <main class="col-9 bg-light p-4">
             <h2 class="text-center mb-4" th:text="${'Product Details'}"></h2>
 
@@ -73,17 +31,13 @@
             </div>
 
             <div class="row">
-                <!-- Product Image -->
                 <div class="col-md-4 d-flex align-items-center">
-                    <img th:src="@{/uploads/{filename}(filename=${product.photoName})}"
-
-                         alt="Product Image"
-                         class="img-fluid rounded border">
+                    <img th:src="@{/uploads/{filename}(filename=${product.photoName})}" alt="Product Image" class="img-fluid rounded border">
                 </div>
 
-                <!-- Form Section -->
                 <div class="col-md-8">
-                    <form method="POST" th:object="${product}" th:action="${'/warehouse/products/edit/' + product.id}" enctype="multipart/form-data">
+                    <form method="POST" th:object="${product}" th:action="${'/warehouse/products/edit/' + product.id}"
+                          enctype="multipart/form-data">
                         <div class="mb-3 ">
                             <label for="name">Name:</label>
                             <input type="text" id="name" class="form-control readonly" th:field="*{name}" readonly>
@@ -108,12 +62,14 @@
                             <label for="quantity">Quantity:</label>
                             <input type="number" id="quantity" class="form-control" th:field="${product.quantity}"
                                    th:classappend="${#fields.hasErrors('quantity')} ? 'is-invalid'">
-                            <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}" th:text="${#fields.errors('quantity')}"></div>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}"
+                                 th:text="${#fields.errors('quantity')}"></div>
                         </div>
 
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary" th:text="${'Edit Quantity'}"></button>
-                            <a th:href="@{/warehouse/products}" class="btn btn-secondary" th:text="${'Back to All Products'}"></a>
+                            <a th:href="@{/warehouse/products}" class="btn btn-dark"
+                               th:text="${'Back to All Products'}"></a>
                         </div>
                     </form>
                 </div>

@@ -28,17 +28,14 @@ public class ProductService implements IProductService {
     private final ProductTypeRepository productTypeRepository;
     private final MaterialRepository materialRepository;
     private final Mapper mapper;
-    //private final UploadService uploadService;
 
     @Override
     @Transactional(rollbackOn = Exception.class)
     public Product saveProduct(ProductInsertDTO productInsertDTO)
             throws EntityInvalidArgumentException, IOException {
-      //  String fileName = uploadService.saveFile(productInsertDTO.getPhoto());
 
         Product product = mapper.mapToProductEntity(productInsertDTO);
 
-      //  product.setPhotoName(fileName);
 
         ProductType pt = productTypeRepository.findById(productInsertDTO.getType())
                 .orElseThrow(() -> new EntityInvalidArgumentException("ProductType", "Invalid product type id"));
@@ -63,45 +60,24 @@ public class ProductService implements IProductService {
 
     @Override
     public ProductReadOnlyDTO findById(Long id) {
-        return  mapper.mapToProductReadOnlyDTO(productRepository.findByProdId(id));
+        return mapper.mapToProductReadOnlyDTO(productRepository.findByProdId(id));
     }
 
-   // @Override
-//    public Product updateProduct(ProductUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException {
 
-//        Product product = mapper.mapToProductEntity(updateDTO);
-//
-//        return  productRepository.save(product);
+    @Override
+    public Product updateProduct(ProductUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException {
 
-        @Override
-        public Product updateProduct(ProductUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException {
-            // Fetch the existing product
-            Product existingProduct = productRepository.findByProdId(updateDTO.getId());
-            if (existingProduct == null) {
-              //  throw new EntityNotFoundException("Product with ID " + updateDTO.getId() + " not found.");
-            }
+        Product existingProduct = productRepository.findByProdId(updateDTO.getId());
 
-            // Update fields
-            if (updateDTO.getQuantity() != null) {
-                existingProduct.setQuantity(updateDTO.getQuantity());
-            }
-
-            // Save the updated product
-            return productRepository.save(existingProduct);
+        if (existingProduct == null) {
+          //    throw new EntityNotFoundException("Product with ID " + updateDTO.getId() + " not found.");
         }
 
+        if (updateDTO.getQuantity() != null) {
+            existingProduct.setQuantity(updateDTO.getQuantity());
+        }
 
-  //  }
+        return productRepository.save(existingProduct);
+    }
 
-//    @Override
-//    public Product deleteProduct(ProductUpdateDTO updateDTO) {
-//
-//        Product product = mapper.mapToProductEntity(updateDTO);
-//
-//        product.setStatus("inactive");
-//        product.setQuantity(Long.valueOf("0"));
-//
-//        return productRepository.save(product);
-//
-//    }
 }

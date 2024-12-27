@@ -29,9 +29,6 @@ public class Mapper {
 
     public Product mapToProductEntity(ProductUpdateDTO productUpdateDTO) {
         Product product = new Product();
-     //   product.setName(productUpdateDTO.getName());
-      //  product.setType(productUpdateDTO.getTypeId());
-        //product.setColor();
         product.setQuantity(productUpdateDTO.getQuantity());
         return product;
     }

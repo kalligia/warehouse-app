@@ -1,138 +1,9 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title th:text="${'Register'}"></title>-->
-<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">-->
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">-->
-<!--    <link rel="stylesheet" th:href="@{/css/main-form.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/header.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/footer.css}">-->
-<!--    &lt;!&ndash;    <link rel="stylesheet" th:href="@{/css/sidebar.css}">&ndash;&gt;-->
-<!--</head>-->
-<!--<body class="d-flex flex-column vh-100">-->
-
-<!--&lt;!&ndash; Header &ndash;&gt;-->
-<!--<div th:replace="~{fragments/header :: headerFragment}"></div>-->
-
-<!--&lt;!&ndash; Main Layout &ndash;&gt;-->
-<!--<div class="container-fluid flex-grow-1">-->
-<!--    <div class="row h-100">-->
-
-<!--        &lt;!&ndash; Main Content &ndash;&gt;-->
-<!--        <main class="col-9 bg-light p-4">-->
-<!--            <h2 class="text-center mb-4" th:text="${'Register'}"></h2>-->
-<!--            <form method="POST" th:object="${userInsertDTO}" th:action="${'/warehouse/users/register'}">-->
-<!--                <div class="mb-3">-->
-<!--                    <label for="username">Username:</label>-->
-<!--                    <input type="text" id="username" class="form-control" th:field="*{username}"-->
-<!--                           th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'">-->
-<!--                    <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}"-->
-<!--                         th:text="${#fields.errors('username')}"></div>-->
-<!--                </div>-->
-
-<!--                <div class="mb-3">-->
-<!--                    <label for="password">Password:</label>-->
-<!--                    <input type="password" id="password" class="form-control" th:field="*{password}"-->
-<!--                           th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'">-->
-<!--                    <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}"-->
-<!--                         th:text="${#fields.errors('password')}"></div>-->
-<!--                </div>-->
-
-<!--                <div>-->
-<!--                    <label for="role">Role:</label>-->
-<!--                    <select th:field="*{role}" id="role">-->
-<!--                        <option value="MANAGER">Manager</option>-->
-<!--                        <option value="EMPLOYEE">Employee</option>-->
-<!--                        <option value="ADMIN">Admin</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-
-
-<!--                <button type="submit" class="btn btn-primary w-100 mt-3" th:text="${'Register'}"></button>-->
-
-
-<!--            </form>-->
-<!--        </main>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--&lt;!&ndash; Footer &ndash;&gt;-->
-<!--<footer class="text-black text-center">-->
-<!--    <div th:replace="~{fragments/footer :: footerFragment}"></div>-->
-<!--</footer>-->
-
-<!--&lt;!&ndash; Bootstrap JS &ndash;&gt;-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>-->
-<!--</body>-->
-<!--</html>-->
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title th:text="${'Login'}"></title>-->
-<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">-->
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">-->
-<!--    <link rel="stylesheet" th:href="@{/css/main-form.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/header.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/footer.css}">-->
-<!--    &lt;!&ndash;    <link rel="stylesheet" th:href="@{/css/sidebar.css}">&ndash;&gt;-->
-<!--</head>-->
-<!--<body class="d-flex flex-column vh-100">-->
-
-<!--&lt;!&ndash; Header &ndash;&gt;-->
-<!--<div th:replace="~{fragments/header :: headerFragment}"></div>-->
-
-<!--&lt;!&ndash; Main Layout &ndash;&gt;-->
-<!--<div class="container-fluid flex-grow-1">-->
-<!--    <div class="row h-100">-->
-
-<!--        &lt;!&ndash; Main Content &ndash;&gt;-->
-<!--        <main class="col-9 bg-light p-4">-->
-<!--            <h2 class="text-center mb-4" th:text="${'Login'}"></h2>-->
-<!--            <form th:action="@{/login}" method="POST">-->
-<!--                <div class="mb-3">-->
-<!--                    <label for="username">Username:</label>-->
-<!--                    <input type="text" id="username" class="form-control" name="username" placeholder="Username" autofocus>-->
-<!--                </div>-->
-
-<!--                <div class="mb-3">-->
-<!--                    <label for="password">Password:</label>-->
-<!--                    <input type="password" id="password" class="form-control" name="password" placeholder="Password" autofocus>-->
-<!--                </div>-->
-
-<!--                <button type="submit" class="btn btn-primary w-100 mt-3" th:text="${'Login'}"></button>-->
-<!--                <a  th:href="@{/warehouse/users/register}"  th:text="${'Register here if you do not have an account'}"></a>-->
-
-<!--            </form>-->
-<!--        </main>-->
-<!--        <div th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--&lt;!&ndash; Footer &ndash;&gt;-->
-<!--<footer class="text-black text-center">-->
-<!--    <div th:replace="~{fragments/footer :: footerFragment}"></div>-->
-<!--</footer>-->
-
-<!--&lt;!&ndash; Bootstrap JS &ndash;&gt;-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${'Register'}"></title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" th:href="@{/css/main-form.css}">
@@ -149,7 +20,8 @@
         <form method="POST" th:object="${userInsertDTO}" th:action="${'/warehouse/users/register'}">
             <div class="mb-3">
                 <label for="username" class="form-label">Username:</label>
-                <input type="text" id="username" class="form-control" th:field="*{username}" placeholder="Username" autofocus
+                <input type="text" id="username" class="form-control" th:field="*{username}" placeholder="Username"
+                       autofocus
                        th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'">
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}"
                      th:text="${#fields.errors('username')}"></div>
@@ -172,86 +44,14 @@
                 </select>
             </div>
 
-
             <button type="submit" class="btn btn-primary w-100 mt-3" th:text="${'Register'}"></button>
-
 
         </form>
     </div>
 </div>
 <div th:replace="~{fragments/footer :: footerFragment}"></div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title th:text="${'Register'}"></title>-->
-<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">-->
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">-->
-<!--    <link rel="stylesheet" th:href="@{/css/main-form.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/header.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/footer.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/user.css}">-->
-<!--</head>-->
-<!--<body class="d-flex flex-column vh-100">-->
-
-<!--&lt;!&ndash; Header &ndash;&gt;-->
-<!--<div th:replace="~{fragments/header :: headerFragment}"></div>-->
-
-<!--&lt;!&ndash; Main Layout &ndash;&gt;-->
-<!--<div class="container-fluid flex-grow-1">-->
-<!--    <div class="row h-100">-->
-<!--        &lt;!&ndash; Main Content &ndash;&gt;-->
-<!--        <main class="col-12 col-md-8 col-lg-6 mx-auto my-5">-->
-<!--            <div class="login-form-container">-->
-<!--                <h2 class="text-center mb-4" th:text="${'Register'}"></h2>-->
-<!--                <form method="POST" th:object="${userInsertDTO}" th:action="${'/warehouse/users/register'}">-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="username">Username:</label>-->
-<!--                        <input type="text" id="username" class="form-control" th:field="*{username}"-->
-<!--                               th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'">-->
-<!--                        <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}"-->
-<!--                             th:text="${#fields.errors('username')}"></div>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label for="password">Password:</label>-->
-<!--                        <input type="password" id="password" class="form-control" th:field="*{password}"-->
-<!--                               th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'">-->
-<!--                        <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}"-->
-<!--                             th:text="${#fields.errors('password')}"></div>-->
-<!--                    </div>-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label for="role">Role:</label>-->
-<!--                        <select th:field="*{role}" id="role" class="form-control">-->
-<!--                            <option value="MANAGER">Manager</option>-->
-<!--                            <option value="EMPLOYEE">Employee</option>-->
-<!--                            <option value="ADMIN">Admin</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-
-<!--                    <button type="submit" class="btn btn-primary w-100 mt-3" th:text="${'Register'}"></button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </main>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--&lt;!&ndash; Footer &ndash;&gt;-->
-<!--<footer class="text-black text-center">-->
-<!--    <div th:replace="~{fragments/footer :: footerFragment}"></div>-->
-<!--</footer>-->
-
-<!--&lt;!&ndash; Bootstrap JS &ndash;&gt;-->
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>-->
-<!--</body>-->
-<!--</html>-->

@@ -1,6 +1,9 @@
 package gr.giatzi.warehouseapp.dto;
 
+import gr.giatzi.warehouseapp.validation.ValidFile;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,21 +16,22 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 public class ProductInsertDTO {
 
-    @NotNull(message = "Product type can not ne null.")
+    @NotNull(message = "Please select a product type.")
     private Long type;
 
-    @NotNull(message = "Product type can not ne null.")
+    @NotBlank(message = "Product name can not be null.")
     private String name;
 
-    @NotNull(message = "Color can not ne null.")
+    @NotBlank(message = "Color can not be null.")
     private String color;
 
-    @NotNull(message = "Product type can not ne null.")
+    @NotNull(message = "Quantity can not be null.")
+    @PositiveOrZero(message = "Quantity can not be negative.")
     private Long quantity;
 
-    @NotNull(message = "Product type can not ne null.")
+    @NotNull(message = "Please select a material.")
     private Long material;
 
-    @NotNull(message = "Product type can not ne null.")
+    @ValidFile(message = "Image must not exceed 5MB. Allowed formats: .jpg, .jpeg, .png.")
     private MultipartFile photo;
 }

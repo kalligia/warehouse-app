@@ -13,9 +13,4 @@ public class LoginController {
         return principal == null ? "login" : "redirect:/index";
     }
 
-//    @GetMapping("/")
-//    public String root(Principal principal) {
-//        // return "redirect:/login";
-//        return principal == null ? "login" : "redirect:/dashboard";
-//    }
 }

@@ -12,12 +12,12 @@ import lombok.Setter;
 @Setter
 public class UserInsertDTO {
 
-   // @Email
     private String username;
 
     @NotNull
    // @Pattern(regexp = "^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\\d)(?=.*?[@$!%*?&]).{5,}$", message = "Invalid password")
     private String password;
 
+    @NotNull(message = "Please select a role.")
     private String role;
 }

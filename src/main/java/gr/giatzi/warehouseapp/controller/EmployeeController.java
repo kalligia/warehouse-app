@@ -41,48 +41,42 @@ public class EmployeeController {
 
     @PostMapping("/employees/add")
     public String saveEmployee(@Valid @ModelAttribute("employee")
-                              EmployeeInsertDTO employeeInsertDTO,
-                              BindingResult bindingResult,
-                              Model model, RedirectAttributes redirectAttributes) {
-       Employee savedEmployee ;
+                               EmployeeInsertDTO employeeInsertDTO,
+                               BindingResult bindingResult,
+                               Model model, RedirectAttributes redirectAttributes) {
+        Employee savedEmployee;
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("jobTitles", jtService.findAllJobTitles());
             return "employee-form";
         }
 
         try {
             savedEmployee = employeeService.saveEmployee(employeeInsertDTO);
             redirectAttributes.addFlashAttribute("successMessage", "Employee added successfully!");
-
             LOGGER.info("Employee with id {} added", savedEmployee.getEmpId());
         } catch (EntityAlreadyExistsException | EntityInvalidArgumentException e) {
-         //   LOGGER.error("Employee with amka {} not added", employeeInsertDTO.getAmka());
+            LOGGER.error("Employee with email {} not added", employeeInsertDTO.getEmail());
             model.addAttribute("errorMessage", e.getMessage());
             return "employee-form";
         }
 
-//
-//        EmployeeReadOnlyDTO employeeReadOnlyDTO = mapper.mapToEmployeeReadOnlyDTO(savedEmployee);
-//        model.addAttribute("employee", savedEmployee);
         return "redirect:/warehouse/employees";
-
     }
 
     @GetMapping("/employees")
     public String getPaginatedEmployees(
-            @RequestParam(defaultValue = "0") int page,  // Default to the first page (0-indexed)
-            @RequestParam(defaultValue = "5") int size,  // Default page size
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
             Model model) {
 
-        // Get paginated TeacherReadOnlyDTOs
         Page<EmployeeReadOnlyDTO> employeesPage = employeeService.getPaginatedEmployees(page, size);
 
-        // Add the page of teachers and pagination info to the model
         model.addAttribute("employeesPage", employeesPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", employeesPage.getTotalPages());
 
-        return "employees";  // Return Thymeleaf view (teachers.html)
+        return "employees";
     }
 
     @GetMapping("/employees/delete/{id}")
@@ -104,56 +98,29 @@ public class EmployeeController {
 
     @PostMapping("/employees/edit/{id}")
     public String updateEmployee(@Valid @ModelAttribute("employee")
-                               EmployeeUpdateDTO employeeUpdateDTO,
-                               BindingResult bindingResult,
-                               Model model, RedirectAttributes redirectAttributes) {
-        Employee savedEmployee ;
+                                 EmployeeUpdateDTO employeeUpdateDTO,
+                                 BindingResult bindingResult,
+                                 Model model, RedirectAttributes redirectAttributes) {
+        Employee savedEmployee;
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("jobTitles", jtService.findAllJobTitles());
             return "employee-form";
         }
-
         try {
             savedEmployee = employeeService.updateEmployee(employeeUpdateDTO);
             redirectAttributes.addFlashAttribute("successMessage", "Employee edited successfully!");
-            LOGGER.info("Employee with id {} added", savedEmployee.getEmpId());
+            LOGGER.info("Employee with id {} edited", savedEmployee.getEmpId());
         } catch (EntityNotFoundException | EntityInvalidArgumentException e) {
-        //    LOGGER.error("Employee with amka {} not added", employeeUpdateDTO.getAmka());
+            LOGGER.error("Employee with email {} not edited", employeeUpdateDTO.getEmail());
             model.addAttribute("errorMessage", e.getMessage());
-            return "employee-form"; }
+            return "employee-form";
+        }
 
-        EmployeeReadOnlyDTO employeeReadOnlyDTO = mapper.mapToEmployeeReadOnlyDTO(savedEmployee);
-        model.addAttribute("employee", savedEmployee);
         return "redirect:/warehouse/employees/edit/{id}";
     }
 }
 
-
-
-//    @GetMapping("/employees/edit/{id}")
-//    public String editEmployee(@Valid @ModelAttribute("employeeUpdateDTO")
-//                                   EmployeeUpdateDTO employeeUpdateDTO,
-//                               BindingResult bindingResult,
-//                               Model model) {
-//        Employee editedEmployee ;
-//
-//        if (bindingResult.hasErrors()) {
-//            return "employee-form";
-//        }
-//
-//        try {
-//            editedEmployee = employeeService.updateEmployee(employeeUpdateDTO);
-//            LOGGER.info("Employee with id {} added", editedEmployee.getEmpId());
-//        } catch (EntityInvalidArgumentException | EntityNotFoundException e) {
-//            LOGGER.error("Employee with amka {} not added", employeeUpdateDTO.getAmka());
-//            model.addAttribute("errorMessage", e.getMessage());
-//            return "employee-form";
-//        }
-//
-//
-//        EmployeeReadOnlyDTO employeeReadOnlyDTO = mapper.mapToEmployeeReadOnlyDTO(editedEmployee);
-//        model.addAttribute("employee", editedEmployee);
-//        return "redirect:/warehouse/employees/add";
 
 
 

@@ -51,6 +51,8 @@ public class ProductController {
         Product savedProduct ;
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("materials", materialService.findAllMaterials());
+            model.addAttribute("productTypes", productTypeService.findAllProductTypes());
             return "product-form";
         }
 
@@ -65,24 +67,16 @@ public class ProductController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-//
-//        ProductReadOnlyDTO productReadOnlyDTO = mapper.mapToProductReadOnlyDTO(savedProduct);
-//        model.addAttribute("product", productReadOnlyDTO);
-//        redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
 
         return "redirect:/warehouse/products";
-
     }
 
     @GetMapping("/products")
     public String getProducts(Model model) {
-        // Retrieve the list of products
-        List<ProductReadOnlyDTO> products = productService.getAllProducts();
 
-        // Add the list of products to the model
+        List<ProductReadOnlyDTO> products = productService.getAllProducts();
         model.addAttribute("products", products);
 
-        // Return the name of the HTML view (products.html)
         return "products";
     }
 
@@ -98,7 +92,7 @@ public class ProductController {
                                  BindingResult bindingResult,
                                  Model model, RedirectAttributes redirectAttributes
                                  ) {
-        Product savedProduct ;
+        Product savedProduct;
 
         if (bindingResult.hasErrors()) {
             return "product-details";
@@ -106,41 +100,12 @@ public class ProductController {
 
         try {
             savedProduct = productService.updateProduct(productUpdateDTO);
-            redirectAttributes.addFlashAttribute("successMessage", "Quantity edited successfully!");
-            //  LOGGER.info("Employee with id {} added", savedEmployee.getEmpId());
+            redirectAttributes.addFlashAttribute("successMessage", "Quantity updated successfully!");
+            LOGGER.info("Product with id {} updated", savedProduct.getProdId());
         } catch (EntityNotFoundException | EntityInvalidArgumentException e) {
-        //    LOGGER.error("Employee with amka {} not added", employeeUpdateDTO.getAmka());
             model.addAttribute("errorMessage", e.getMessage());
             return "product-details"; }
 
-//        ProductReadOnlyDTO productReadOnlyDTO = mapper.mapToProductReadOnlyDTO(savedProduct);
-//        model.addAttribute("product", savedProduct);
         return "redirect:/warehouse/products/details/{id}";
     }
-
-//    @GetMapping("/products/delete/{id}")
-//    public String deleteProduct(@PathVariable Long id, Model model) {
-//        Product product = productService.findById(id);
-//        ProductUpdateDTO productUpdateDTO = mapper.mapToProductUpdateDTO(product);
-//        model.addAttribute("product", productUpdateDTO);
-//        return "redirect:/warehouse/products";
-//    }
-
-//    @GetMapping("/products")
-//    public String getPaginatedEmployees(
-//            @RequestParam(defaultValue = "0") int page,  // Default to the first page (0-indexed)
-//            @RequestParam(defaultValue = "5") int size,  // Default page size
-//            Model model) {
-//
-//        // Get paginated TeacherReadOnlyDTOs
-//        Page<EmployeeReadOnlyDTO> employeesPage = productService.getPaginatedEmployees(page, size);
-//
-//        // Add the page of teachers and pagination info to the model
-//        model.addAttribute("employeesPage", employeesPage);
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", employeesPage.getTotalPages());
-//
-//        return "employees";  // Return Thymeleaf view (teachers.html)
-//    }
-
 }

@@ -31,11 +31,6 @@ public class EmployeeService implements IEmployeeService{
     public Employee saveEmployee(EmployeeInsertDTO employeeInsertDTO)
             throws EntityAlreadyExistsException, EntityInvalidArgumentException {
 
-//        if (employeeRepository.findByAmka(employeeInsertDTO.getAmka()).isPresent()) {
-//            throw new EntityAlreadyExistsException("Employee", "Employee with amka: "
-//                    + employeeInsertDTO.getAmka() + " already exists.");
-//        }
-
         Employee employee = mapper.mapToEmployeeEntity(employeeInsertDTO);
 
         JobTitle jt = jobTitleRepository.findById(employeeInsertDTO.getTitleId())
@@ -50,13 +45,11 @@ public class EmployeeService implements IEmployeeService{
     @Override
     @Transactional
     public Page<EmployeeReadOnlyDTO> getPaginatedEmployees(int page, int size) {
-        // Create a Pageable object with the requested page number and size
+
         Pageable pageable = PageRequest.of(page, size);
 
-        // Fetch paginated list of teachers
         Page<Employee> employeePage = employeeRepository.findAll(pageable);
 
-        // Map each Teacher entity to TeacherReadOnlyDTO
         return employeePage.map(mapper::mapToEmployeeReadOnlyDTO);
     }
 

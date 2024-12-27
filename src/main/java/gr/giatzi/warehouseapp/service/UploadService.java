@@ -15,7 +15,7 @@ public class UploadService {
 
     public String saveFile(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
-            throw new IllegalArgumentException("Το αρχείο είναι κενό.");
+            throw new IllegalArgumentException("File is empty.");
         }
 
         Path uploadPath = Paths.get(UPLOAD_DIR);
@@ -28,6 +28,6 @@ public class UploadService {
 
         Files.write(filePath, file.getBytes());
 
-        return fileName; // Επιστρέφει το όνομα του αρχείου
+        return fileName;
     }
 }
