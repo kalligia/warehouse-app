@@ -7,6 +7,7 @@ import gr.giatzi.warehouseapp.dto.ProductInsertDTO;
 import gr.giatzi.warehouseapp.dto.ProductReadOnlyDTO;
 import gr.giatzi.warehouseapp.dto.ProductUpdateDTO;
 import gr.giatzi.warehouseapp.model.Product;
+import gr.giatzi.warehouseapp.model.static_data.ProductType;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +20,9 @@ public interface IProductService {
 
     ProductReadOnlyDTO findById(Long id);
 
+    void deleteProduct(Long id) throws EntityNotFoundException;
+
     Product updateProduct(ProductUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException;
 
+    public List<ProductReadOnlyDTO> findByType(ProductType type) ;
 }

@@ -1,0 +1,18 @@
+/* CSS για το main */
+main {
+    background-image: url("/img/index2.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+main h1, main h4, main h5 {
+    z-index: 10;
+}

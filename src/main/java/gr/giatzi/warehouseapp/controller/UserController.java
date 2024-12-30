@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -33,14 +34,15 @@ public class UserController {
     public String insertUser(@Valid @ModelAttribute("userInsertDTO")
                              UserInsertDTO userInsertDTO,
                              BindingResult bindingResult,
-                             Model model
+                             Model model, RedirectAttributes redirectAttributes
     ) {
         if (bindingResult.hasErrors()) {
             return "register";
         }
 
+        redirectAttributes.addFlashAttribute("successMessage", "User registered successfully.");
         User user = mapper.mapToUserEntity(userInsertDTO);
         userService.saveUser(user);
-        return "login";
+        return "redirect:/login";
     }
 }

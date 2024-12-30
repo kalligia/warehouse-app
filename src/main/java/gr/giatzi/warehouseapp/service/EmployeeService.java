@@ -31,6 +31,10 @@ public class EmployeeService implements IEmployeeService{
     public Employee saveEmployee(EmployeeInsertDTO employeeInsertDTO)
             throws EntityAlreadyExistsException, EntityInvalidArgumentException {
 
+        if (employeeRepository.findByEmail(employeeInsertDTO.getEmail()) != null) {
+            throw new EntityAlreadyExistsException("Employee", "Employee with email: " + employeeInsertDTO.getEmail() + " already exists.");
+        }
+
         Employee employee = mapper.mapToEmployeeEntity(employeeInsertDTO);
 
         JobTitle jt = jobTitleRepository.findById(employeeInsertDTO.getTitleId())

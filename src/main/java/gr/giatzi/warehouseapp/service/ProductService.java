@@ -35,8 +35,6 @@ public class ProductService implements IProductService {
             throws EntityInvalidArgumentException, IOException {
 
         Product product = mapper.mapToProductEntity(productInsertDTO);
-
-
         ProductType pt = productTypeRepository.findById(productInsertDTO.getType())
                 .orElseThrow(() -> new EntityInvalidArgumentException("ProductType", "Invalid product type id"));
 
@@ -63,6 +61,14 @@ public class ProductService implements IProductService {
         return mapper.mapToProductReadOnlyDTO(productRepository.findByProdId(id));
     }
 
+    @Override
+    public void deleteProduct(Long id) throws EntityNotFoundException {
+        if (!productRepository.existsById(id)) {
+            throw new IllegalArgumentException("Product with ID " + id + " does not exist.");
+        }
+        productRepository.deleteById(id);
+    }
+
 
     @Override
     public Product updateProduct(ProductUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException {
@@ -78,6 +84,12 @@ public class ProductService implements IProductService {
         }
 
         return productRepository.save(existingProduct);
+    }
+
+    public List<ProductReadOnlyDTO> findByType(ProductType type) {
+        return productRepository.findByType(type).stream()
+                .map(mapper::mapToProductReadOnlyDTO)
+                .collect(Collectors.toList());
     }
 
 }

@@ -37,7 +37,8 @@
 
             <div>
                 <label for="role" class="form-label">Role:</label>
-                <select th:field="*{role}" id="role">
+                <select class="form-select" th:field="*{role}" id="role">
+                    <option value="" selected>Select Role</option>
                     <option value="MANAGER">Manager</option>
                     <option value="EMPLOYEE">Employee</option>
                     <option value="ADMIN">Admin</option>

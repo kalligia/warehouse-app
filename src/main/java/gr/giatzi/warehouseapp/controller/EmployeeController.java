@@ -57,8 +57,9 @@ public class EmployeeController {
             LOGGER.info("Employee with id {} added", savedEmployee.getEmpId());
         } catch (EntityAlreadyExistsException | EntityInvalidArgumentException e) {
             LOGGER.error("Employee with email {} not added", employeeInsertDTO.getEmail());
+            redirectAttributes.addFlashAttribute("warningMessage", "Employee with email " + employeeInsertDTO.getEmail() +" already exists!");
             model.addAttribute("errorMessage", e.getMessage());
-            return "employee-form";
+            return "redirect:/warehouse/employees/add";
         }
 
         return "redirect:/warehouse/employees";

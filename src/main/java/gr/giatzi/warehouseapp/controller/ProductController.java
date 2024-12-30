@@ -7,6 +7,7 @@ import gr.giatzi.warehouseapp.dto.ProductReadOnlyDTO;
 import gr.giatzi.warehouseapp.dto.ProductUpdateDTO;
 import gr.giatzi.warehouseapp.mapper.Mapper;
 import gr.giatzi.warehouseapp.model.Product;
+import gr.giatzi.warehouseapp.model.static_data.ProductType;
 import gr.giatzi.warehouseapp.service.MaterialService;
 import gr.giatzi.warehouseapp.service.ProductService;
 import gr.giatzi.warehouseapp.service.ProductTypeService;
@@ -72,13 +73,30 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public String getProducts(Model model) {
+    public String getProducts(@RequestParam(value = "type", required = false) ProductType type, Model model) {
 
-        List<ProductReadOnlyDTO> products = productService.getAllProducts();
+        List<ProductReadOnlyDTO> products ;
+
+        if (type != null ) {
+            model.addAttribute("selectedType", type.getId());
+            products = productService.findByType(type);
+        } else {
+            products = productService.getAllProducts();
+        }
+
         model.addAttribute("products", products);
-
+        model.addAttribute("productTypes", productTypeService.findAllProductTypes());
         return "products";
     }
+
+//    @GetMapping("/products")
+//    public String getProducts(Model model) {
+//
+//        List<ProductReadOnlyDTO> products = productService.getAllProducts();
+//        model.addAttribute("products", products);
+//
+//        return "products";
+//    }
 
     @GetMapping("/products/details/{id}")
     public String getProductForm(@PathVariable Long id, Model model) {
@@ -107,5 +125,13 @@ public class ProductController {
             return "product-details"; }
 
         return "redirect:/warehouse/products/details/{id}";
+    }
+
+    @GetMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes)
+            throws EntityNotFoundException {
+        productService.deleteProduct(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Product deleted successfully!");
+        return "redirect:/warehouse/products";
     }
 }
