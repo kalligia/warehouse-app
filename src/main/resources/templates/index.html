@@ -25,7 +25,7 @@
     <main class="col-9 p-4 ">
       <h1 class="text-center mb-4">Welcome to our Warehouse App</h1>
       <h4 class="text-center">You are logged in as: <span sec:authorize="isAuthenticated()" th:text="${#authentication.name}"> </span> </h4>
-
+      <p th:text="${#authentication.principal.authorities}"></p>
       <h5 class="text-center">Today it is <span th:text="${currentDate}"></span> </h5>
 
     </main>

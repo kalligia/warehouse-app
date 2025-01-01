@@ -52,6 +52,10 @@
                 </div>
             </form>
 
+            <div th:if="${#lists.isEmpty(products)}">
+                <p>No products found.</p>
+            </div>
+
             <div class="row">
                 <div class="col-md-4" th:each="product : ${products}">
                     <div class="card product-card">

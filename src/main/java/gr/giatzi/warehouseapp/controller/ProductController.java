@@ -1,5 +1,6 @@
 package gr.giatzi.warehouseapp.controller;
 
+import gr.giatzi.warehouseapp.core.exceptions.EntityAlreadyExistsException;
 import gr.giatzi.warehouseapp.core.exceptions.EntityInvalidArgumentException;
 import gr.giatzi.warehouseapp.core.exceptions.EntityNotFoundException;
 import gr.giatzi.warehouseapp.dto.ProductInsertDTO;
@@ -61,13 +62,13 @@ public class ProductController {
             savedProduct = productService.saveProduct(productInsertDTO);
             redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
             LOGGER.info("Product with id {} added", savedProduct.getProdId());
-        } catch (EntityInvalidArgumentException e) {
+        } catch ( EntityAlreadyExistsException e) {
             LOGGER.error("Product not added");
+            redirectAttributes.addFlashAttribute("warningMessage", "Product with name " + productInsertDTO.getName() +" already exists!");
             model.addAttribute("errorMessage", e.getMessage());
-            return "product-form";
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            return "redirect:/warehouse/products/add";
+        } catch (IOException | EntityInvalidArgumentException e) {
+            throw new RuntimeException(e); }
 
         return "redirect:/warehouse/products";
     }
@@ -88,15 +89,6 @@ public class ProductController {
         model.addAttribute("productTypes", productTypeService.findAllProductTypes());
         return "products";
     }
-
-//    @GetMapping("/products")
-//    public String getProducts(Model model) {
-//
-//        List<ProductReadOnlyDTO> products = productService.getAllProducts();
-//        model.addAttribute("products", products);
-//
-//        return "products";
-//    }
 
     @GetMapping("/products/details/{id}")
     public String getProductForm(@PathVariable Long id, Model model) {

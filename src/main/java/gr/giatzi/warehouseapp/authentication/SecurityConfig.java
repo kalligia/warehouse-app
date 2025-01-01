@@ -17,18 +17,23 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/", "index.html").permitAll()
-//                        .requestMatchers("/school/teachers/**").hasAnyAuthority(Role.TEACHER.name())
-//                        .requestMatchers("/school/users/register").permitAll()
+                        .requestMatchers("/", "index.html").permitAll()
+//                        .requestMatchers( "login.html").permitAll()
+//                        .requestMatchers("/warehouse/products/**").permitAll()
+//                        .requestMatchers("/warehouse/employees").permitAll()
+//                        .requestMatchers("/warehouse/employees/add").hasAnyAuthority(Role.MANAGER.name())
+//                        .requestMatchers("/warehouse/employees/edit/**").hasAnyAuthority(Role.MANAGER.name())
+//                        .requestMatchers("/warehouse/employees/delete/**").hasAnyAuthority(Role.MANAGER.name())
+//                        .requestMatchers("/warehouse/users/register").permitAll()
 //                        .requestMatchers("/css/**").permitAll()
 //                        .requestMatchers("/img/**").permitAll()
-//                        .requestMatchers("/js/**").permitAll()
+//                        .requestMatchers("/uploads/**").permitAll()
 //                        .anyRequest().authenticated()
-                                .anyRequest().permitAll()
+                               .anyRequest().permitAll()
 
               )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login")    // default for POST requests
+                        .loginPage("/login")
                         //.permitAll()
                         .defaultSuccessUrl("/")
                 )

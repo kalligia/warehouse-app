@@ -32,12 +32,12 @@
             </a>
             <ul class="collapse ps-3" id="employeesMenu">
                 <li><a class="nav-link text-white" th:href="@{/warehouse/employees}">All Employees</a></li>
-                <li><a class="nav-link text-white" th:href="@{/warehouse/employees/add}">Add Employee</a></li>
+                <li th:if="${#authorization.expression('hasAnyAuthority(''MANAGER'')')}"><a class="nav-link text-white" th:href="@{/warehouse/employees/add}">Add Employee</a></li>
             </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" th:href="@{/logout}">
-                <i class="bi bi-person"></i> Logout
+                <i class="bi bi-box-arrow-right"></i> Logout
             </a>
         </li>
     </ul>

@@ -18,6 +18,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class EmployeeService implements IEmployeeService{
@@ -69,7 +71,11 @@ public class EmployeeService implements IEmployeeService{
     @Override
     @Transactional
     public Employee updateEmployee(EmployeeUpdateDTO updateDTO)
-            throws EntityNotFoundException, EntityInvalidArgumentException {
+            throws EntityNotFoundException, EntityInvalidArgumentException, EntityAlreadyExistsException {
+
+        if (employeeRepository.findByEmail(updateDTO.getEmail()) != null && !Objects.equals(employeeRepository.findByEmail(updateDTO.getEmail()).getEmpId(), updateDTO.getId())) {
+            throw new EntityAlreadyExistsException("Employee", "Employee with email: " + updateDTO.getEmail() + " already exists.");
+        }
 
         Employee employee = mapper.mapToEmployeeEntity(updateDTO);
 

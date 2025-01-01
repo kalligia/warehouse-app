@@ -28,6 +28,7 @@ public class Employee extends AbstractEntity{
 
     private String lastname;
 
+    @Column(unique = true)
     private String email;
 
     @Column(name = "phone_number")

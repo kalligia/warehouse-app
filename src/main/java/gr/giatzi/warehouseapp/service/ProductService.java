@@ -1,5 +1,6 @@
 package gr.giatzi.warehouseapp.service;
 
+import gr.giatzi.warehouseapp.core.exceptions.EntityAlreadyExistsException;
 import gr.giatzi.warehouseapp.core.exceptions.EntityInvalidArgumentException;
 import gr.giatzi.warehouseapp.core.exceptions.EntityNotFoundException;
 import gr.giatzi.warehouseapp.dto.ProductInsertDTO;
@@ -32,7 +33,11 @@ public class ProductService implements IProductService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public Product saveProduct(ProductInsertDTO productInsertDTO)
-            throws EntityInvalidArgumentException, IOException {
+            throws EntityInvalidArgumentException, EntityAlreadyExistsException, IOException {
+
+        if (productRepository.findByName(productInsertDTO.getName()) != null) {
+            throw new EntityAlreadyExistsException("Product", "Product with name: " + productInsertDTO.getName() + " already exists.");
+        }
 
         Product product = mapper.mapToProductEntity(productInsertDTO);
         ProductType pt = productTypeRepository.findById(productInsertDTO.getType())

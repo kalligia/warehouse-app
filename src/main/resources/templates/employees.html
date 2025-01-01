@@ -51,11 +51,15 @@
                         <td th:text="${employee.phoneNumber}"></td>
                         <td class="text-center">
                             <a th:href="@{/warehouse/employees/edit/{id}(id=${employee.empId})}"
-                               class="btn btn-sm btn-warning me-2">
+                               class="btn btn-sm btn-warning me-2"
+                               th:classappend="${#authorization.expression('hasAnyAuthority(''MANAGER'')')} ? '' : 'disabled'"
+                               th:disabled="${!#authorization.expression('hasAnyAuthority(''MANAGER'')')}">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <a th:href="@{/warehouse/employees/delete/{id}(id=${employee.empId})}"
                                class="btn btn-sm btn-danger"
+                               th:classappend="${#authorization.expression('hasAnyAuthority(''MANAGER'')')} ? '' : 'disabled'"
+                               th:disabled="${!#authorization.expression('hasAnyAuthority(''MANAGER'')')}"
                                onclick="return confirm('Are you sure you want to delete this employee?')">
                                 <i class="bi bi-trash"></i>
                             </a>

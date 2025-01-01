@@ -31,7 +31,6 @@ public class EmployeeController {
     private final Mapper mapper;
     private final EmployeeService employeeService;
 
-
     @GetMapping("/employees/add")
     public String getEmployeeForm(Model model) {
         model.addAttribute("employee", new EmployeeInsertDTO());
@@ -55,13 +54,16 @@ public class EmployeeController {
             savedEmployee = employeeService.saveEmployee(employeeInsertDTO);
             redirectAttributes.addFlashAttribute("successMessage", "Employee added successfully!");
             LOGGER.info("Employee with id {} added", savedEmployee.getEmpId());
-        } catch (EntityAlreadyExistsException | EntityInvalidArgumentException e) {
+        } catch (EntityAlreadyExistsException e) {
             LOGGER.error("Employee with email {} not added", employeeInsertDTO.getEmail());
-            redirectAttributes.addFlashAttribute("warningMessage", "Employee with email " + employeeInsertDTO.getEmail() +" already exists!");
+            redirectAttributes.addFlashAttribute("warningMessage", "Employee with email " + employeeInsertDTO.getEmail() + " already exists!");
+            model.addAttribute("errorMessage", e.getMessage());
+            return "redirect:/warehouse/employees/add";
+        } catch (EntityInvalidArgumentException e) {
+            LOGGER.error("Invalid argument for employee: {}", e.getMessage());
             model.addAttribute("errorMessage", e.getMessage());
             return "redirect:/warehouse/employees/add";
         }
-
         return "redirect:/warehouse/employees";
     }
 
@@ -117,8 +119,13 @@ public class EmployeeController {
             model.addAttribute("errorMessage", e.getMessage());
             return "employee-form";
         }
-
-        return "redirect:/warehouse/employees/edit/{id}";
+        catch (EntityAlreadyExistsException e) {
+            LOGGER.error("Employee with email {} not edited", employeeUpdateDTO.getEmail());
+            redirectAttributes.addFlashAttribute("warningMessage", "Employee with email " + employeeUpdateDTO.getEmail() + " already exists!");
+            model.addAttribute("errorMessage", e.getMessage());
+            return "redirect:/warehouse/employees/edit/{id}";
+        }
+            return "redirect:/warehouse/employees/edit/{id}";
     }
 }
 
