@@ -1,5 +1,6 @@
 package gr.giatzi.warehouseapp.authentication;
 
+import gr.giatzi.warehouseapp.core.enums.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -18,23 +19,26 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "index.html").permitAll()
-//                        .requestMatchers( "login.html").permitAll()
-//                        .requestMatchers("/warehouse/products/**").permitAll()
-//                        .requestMatchers("/warehouse/employees").permitAll()
-//                        .requestMatchers("/warehouse/employees/add").hasAnyAuthority(Role.MANAGER.name())
-//                        .requestMatchers("/warehouse/employees/edit/**").hasAnyAuthority(Role.MANAGER.name())
-//                        .requestMatchers("/warehouse/employees/delete/**").hasAnyAuthority(Role.MANAGER.name())
-//                        .requestMatchers("/warehouse/users/register").permitAll()
-//                        .requestMatchers("/css/**").permitAll()
-//                        .requestMatchers("/img/**").permitAll()
-//                        .requestMatchers("/uploads/**").permitAll()
-//                        .anyRequest().authenticated()
-                               .anyRequest().permitAll()
+                        .requestMatchers( "login.html").permitAll()
+                                .requestMatchers("/warehouse/products").authenticated()
+                        .requestMatchers("/warehouse/products/**").authenticated()
+                        .requestMatchers("/warehouse/employees").authenticated()
+                        .requestMatchers("/warehouse/employees/add").hasAnyAuthority(Role.MANAGER.name(), Role.ADMIN.name())
+                        .requestMatchers("/warehouse/employees/edit/**").hasAnyAuthority(Role.MANAGER.name(), Role.ADMIN.name())
+                        .requestMatchers("/warehouse/employees/delete/**").hasAnyAuthority(Role.MANAGER.name(), Role.ADMIN.name())
+                        .requestMatchers("/warehouse/users/register").permitAll()
+                        .requestMatchers("/warehouse/users").hasAnyAuthority(Role.ADMIN.name())
+                        .requestMatchers("/warehouse/users/delete/**").hasAnyAuthority(Role.ADMIN.name())
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/img/**").permitAll()
+                        .requestMatchers("/uploads/**").authenticated()
+                        .anyRequest().authenticated()
+  //                             .anyRequest().permitAll()
 
               )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        //.permitAll()
+                        .permitAll()
                         .defaultSuccessUrl("/")
                 )
                 .httpBasic(Customizer.withDefaults())
@@ -42,7 +46,10 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
-                );
+                )
+                .exceptionHandling(e -> e
+                        .accessDeniedPage("/access-denied")
+                )  ;
         return http.build();
     }
 }

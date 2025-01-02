@@ -63,8 +63,8 @@ public class Mapper {
 
     public EmployeeReadOnlyDTO mapToEmployeeReadOnlyDTO(Employee employee) {
         return new EmployeeReadOnlyDTO(employee.getEmpId(), employee.getTitle().getName(), employee.getFirstname(),
-                employee.getLastname(), employee.getEmail(), employee.getPhoneNumber(),
-                 employee.getCreatedAt(), employee.getUpdatedAt());
+                employee.getLastname(), employee.getEmail(), employee.getPhoneNumber()
+                 );
     }
 
     public EmployeeUpdateDTO mapToEmployeeUpdateDTO(Employee employee) {
@@ -77,4 +77,8 @@ public class Mapper {
                 userInsertDTO.getPassword(), Role.valueOf(userInsertDTO.getRole().toUpperCase()));
     }
 
+    public UserReadOnlyDTO mapToUserReadOnlyDTO(User user) {
+        return new UserReadOnlyDTO(user.getId(), user.getUsername(), user.getRole().name(), user.getCreatedAt()
+        );
+    }
 }

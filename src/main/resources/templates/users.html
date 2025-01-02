@@ -23,7 +23,7 @@
         </aside>
 
         <main class="col-9 p-4 bg-light">
-            <h1 class="text-center mb-4">Employees List</h1>
+            <h1 class="text-center mb-4">Users List</h1>
             <hr>
 
             <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -35,33 +35,21 @@
                 <table class="table table-striped table-bordered">
                     <thead class="table-dark text-center">
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Title</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Actions</th>
-                    </tr>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Created at</th>
+                        <th>Delete</th>
+                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="employee : ${employeesPage.content}">
-                        <td th:text="${employee.firstname}"></td>
-                        <td th:text="${employee.lastname}"></td>
-                        <td th:text="${employee.title}"></td>
-                        <td th:text="${employee.email}"></td>
-                        <td th:text="${employee.phoneNumber}"></td>
-                        <td class="text-center">
-                            <a th:href="@{/warehouse/employees/edit/{id}(id=${employee.empId})}"
-                               class="btn btn-sm btn-warning me-2"
-                               th:classappend="${#authorization.expression('hasAnyAuthority(''MANAGER'', ''ADMIN'')')} ? '' : 'disabled'"
-                               th:disabled="${!#authorization.expression('hasAnyAuthority(''MANAGER'', ''ADMIN'')')}">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a th:href="@{/warehouse/employees/delete/{id}(id=${employee.empId})}"
+                    <tr th:each="user : ${usersPage.content}">
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.role}"></td>
+                        <td th:text="${user.createdAt}"></td>
+                        <td  th:if="${user.id != currentUserId}" class="text-center">
+                            <a th:href="@{/warehouse/users/delete/{id}(id=${user.id})}"
                                class="btn btn-sm btn-danger"
-                               th:classappend="${#authorization.expression('hasAnyAuthority(''MANAGER'', ''ADMIN'')')} ? '' : 'disabled'"
-                               th:disabled="${!#authorization.expression('hasAnyAuthority(''MANAGER'', ''ADMIN'')')}"
-                               onclick="return confirm('Are you sure you want to delete this employee?')">
+                               onclick="return confirm('Are you sure you want to delete this user?')">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
@@ -73,12 +61,12 @@
             <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                        <a class="page-link" th:href="@{/warehouse/employees(page=0, size=${employeesPage.size})}">&laquo;
+                        <a class="page-link" th:href="@{/warehouse/users(page=0, size=${usersPage.size})}">&laquo;
                             First</a>
                     </li>
                     <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
                         <a class="page-link"
-                           th:href="@{/warehouse/employees(page=${currentPage - 1}, size=${employeesPage.size})}">&lsaquo;
+                           th:href="@{/warehouse/users(page=${currentPage - 1}, size=${usersPage.size})}">&lsaquo;
                             Prev</a>
                     </li>
                     <li class="page-item disabled">
@@ -86,12 +74,12 @@
                     </li>
                     <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
                         <a class="page-link"
-                           th:href="@{/warehouse/employees(page=${currentPage + 1}, size=${employeesPage.size})}">Next
+                           th:href="@{/warehouse/users(page=${currentPage + 1}, size=${usersPage.size})}">Next
                             &rsaquo;</a>
                     </li>
                     <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
                         <a class="page-link"
-                           th:href="@{/warehouse/employees(page=${totalPages - 1}, size=${employeesPage.size})}">Last
+                           th:href="@{/warehouse/users(page=${totalPages - 1}, size=${usersPage.size})}">Last
                             &raquo;</a>
                     </li>
                 </ul>

@@ -20,6 +20,4 @@ public interface IEmployeeService {
     Employee updateEmployee(EmployeeUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException, EntityAlreadyExistsException;
 
     Employee findById(Long id);
-
-
 }

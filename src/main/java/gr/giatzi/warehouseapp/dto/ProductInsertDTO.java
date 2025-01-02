@@ -32,6 +32,6 @@ public class ProductInsertDTO {
     @NotNull(message = "Please select a material.")
     private Long material;
 
-    @ValidFile(message = "Image must not exceed 5MB. Allowed formats: .jpg, .jpeg, .png.")
+    @ValidFile(message = "Image must not exceed 5MB. Allowed formats: .jpg, .jpeg, .png, .webp.")
     private MultipartFile photo;
 }

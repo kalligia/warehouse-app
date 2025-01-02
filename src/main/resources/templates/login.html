@@ -21,6 +21,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
+    <div th:if="${param.error}" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message + '. Please try again.'} "></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <div class="login-form-container">
 
         <h2 class="text-center" th:text="${'Login'}"></h2>
@@ -42,8 +47,6 @@
                 <a th:href="@{/warehouse/users/register}" th:text="${'Register here'}"></a>
             </div>
         </form>
-        <div th:if="${param.error}" class="text-danger text-center mt-3"
-             th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></div>
     </div>
 </div>
 

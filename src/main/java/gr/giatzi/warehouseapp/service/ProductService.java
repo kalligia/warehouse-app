@@ -15,6 +15,9 @@ import gr.giatzi.warehouseapp.repository.ProductRepository;
 import gr.giatzi.warehouseapp.repository.ProductTypeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -96,5 +99,4 @@ public class ProductService implements IProductService {
                 .map(mapper::mapToProductReadOnlyDTO)
                 .collect(Collectors.toList());
     }
-
 }

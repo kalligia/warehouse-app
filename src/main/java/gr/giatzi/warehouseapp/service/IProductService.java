@@ -16,7 +16,7 @@ public interface IProductService {
     Product saveProduct (ProductInsertDTO productInsertDTO)
             throws EntityAlreadyExistsException, EntityInvalidArgumentException, IOException;
 
-    public List<ProductReadOnlyDTO> getAllProducts();
+    List<ProductReadOnlyDTO> getAllProducts();
 
     ProductReadOnlyDTO findById(Long id);
 
@@ -24,5 +24,6 @@ public interface IProductService {
 
     Product updateProduct(ProductUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException;
 
-    public List<ProductReadOnlyDTO> findByType(ProductType type) ;
+    List<ProductReadOnlyDTO> findByType(ProductType type) ;
+
 }

@@ -70,7 +70,7 @@ public class EmployeeController {
     @GetMapping("/employees")
     public String getPaginatedEmployees(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "10") int size,
             Model model) {
 
         Page<EmployeeReadOnlyDTO> employeesPage = employeeService.getPaginatedEmployees(page, size);
