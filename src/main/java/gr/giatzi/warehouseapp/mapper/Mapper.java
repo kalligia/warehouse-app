@@ -7,6 +7,7 @@ import gr.giatzi.warehouseapp.service.UploadService;
 import org.springframework.stereotype.Component;
 import gr.giatzi.warehouseapp.model.User;
 import gr.giatzi.warehouseapp.core.enums.Role;
+
 import java.io.IOException;
 
 @Component
@@ -35,7 +36,7 @@ public class Mapper {
 
     public ProductReadOnlyDTO mapToProductReadOnlyDTO(Product product) {
         return new ProductReadOnlyDTO(product.getProdId(), product.getName(), product.getType().getName(), product.getMaterial().getName(),
-                product.getColor(),product.getQuantity(), product.getPhotoName());
+                product.getColor(), product.getQuantity(), product.getPhotoName());
     }
 
     public ProductUpdateDTO mapToProductUpdateDTO(Product product) {
@@ -64,7 +65,7 @@ public class Mapper {
     public EmployeeReadOnlyDTO mapToEmployeeReadOnlyDTO(Employee employee) {
         return new EmployeeReadOnlyDTO(employee.getEmpId(), employee.getTitle().getName(), employee.getFirstname(),
                 employee.getLastname(), employee.getEmail(), employee.getPhoneNumber()
-                 );
+        );
     }
 
     public EmployeeUpdateDTO mapToEmployeeUpdateDTO(Employee employee) {

@@ -48,9 +48,9 @@ public class UserService implements IUserService {
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> currentUserOpt = userRepository.findByUsername(currentUsername);
 
-        //!!!!!!!!
+
         User currentUser = currentUserOpt.orElseThrow(() ->
-                new EntityNotFoundException("Current user not found" , currentUsername));
+                new EntityNotFoundException("User", "User not found"));
 
         if (currentUser.getId().equals(id)) {
             throw new IllegalArgumentException("Admins cannot delete their own account.");

@@ -39,14 +39,14 @@
                         <th>Role</th>
                         <th>Created at</th>
                         <th>Delete</th>
-                     </tr>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr th:each="user : ${usersPage.content}">
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.role}"></td>
                         <td th:text="${user.createdAt}"></td>
-                        <td  th:if="${user.id != currentUserId}" class="text-center">
+                        <td th:if="${user.id != currentUserId}" class="text-center">
                             <a th:href="@{/warehouse/users/delete/{id}(id=${user.id})}"
                                class="btn btn-sm btn-danger"
                                onclick="return confirm('Are you sure you want to delete this user?')">

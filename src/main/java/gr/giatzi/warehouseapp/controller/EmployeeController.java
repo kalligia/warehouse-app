@@ -118,14 +118,13 @@ public class EmployeeController {
             LOGGER.error("Employee with email {} not edited", employeeUpdateDTO.getEmail());
             model.addAttribute("errorMessage", e.getMessage());
             return "employee-form";
-        }
-        catch (EntityAlreadyExistsException e) {
+        } catch (EntityAlreadyExistsException e) {
             LOGGER.error("Employee with email {} not edited", employeeUpdateDTO.getEmail());
             redirectAttributes.addFlashAttribute("warningMessage", "Employee with email " + employeeUpdateDTO.getEmail() + " already exists!");
             model.addAttribute("errorMessage", e.getMessage());
             return "redirect:/warehouse/employees/edit/{id}";
         }
-            return "redirect:/warehouse/employees/edit/{id}";
+        return "redirect:/warehouse/employees/edit/{id}";
     }
 }
 

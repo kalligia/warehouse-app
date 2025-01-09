@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="photo" >Photo:</label>
+                        <label for="photo">Photo:</label>
                         <input type="file" class="form-control" id="photo" th:field="*{photo}"
                                th:classappend="${#fields.hasErrors('photo')} ? 'is-invalid'">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('photo')}"

@@ -37,8 +37,6 @@ public class ProductController {
     private final Mapper mapper;
     private final ProductService productService;
 
-
-
     @GetMapping("/products/add")
     public String getProductForm(Model model) {
         model.addAttribute("productInsertDTO", new ProductInsertDTO());
@@ -49,8 +47,8 @@ public class ProductController {
 
     @PostMapping("/products/add")
     public String saveProduct(@Valid @ModelAttribute("productInsertDTO") ProductInsertDTO productInsertDTO,
-                               BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
-        Product savedProduct ;
+                              BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        Product savedProduct;
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("materials", materialService.findAllMaterials());
@@ -62,13 +60,14 @@ public class ProductController {
             savedProduct = productService.saveProduct(productInsertDTO);
             redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
             LOGGER.info("Product with id {} added", savedProduct.getProdId());
-        } catch ( EntityAlreadyExistsException e) {
+        } catch (EntityAlreadyExistsException e) {
             LOGGER.error("Product not added");
-            redirectAttributes.addFlashAttribute("warningMessage", "Product with name " + productInsertDTO.getName() +" already exists!");
+            redirectAttributes.addFlashAttribute("warningMessage", "Product with name " + productInsertDTO.getName() + " already exists!");
             model.addAttribute("errorMessage", e.getMessage());
             return "redirect:/warehouse/products/add";
         } catch (IOException | EntityInvalidArgumentException e) {
-            throw new RuntimeException(e); }
+            throw new RuntimeException(e);
+        }
 
         return "redirect:/warehouse/products";
     }
@@ -76,9 +75,9 @@ public class ProductController {
     @GetMapping("/products")
     public String getProducts(@RequestParam(value = "type", required = false) ProductType type, Model model) {
 
-        List<ProductReadOnlyDTO> products ;
+        List<ProductReadOnlyDTO> products;
 
-        if (type != null ) {
+        if (type != null) {
             model.addAttribute("selectedType", type.getId());
             products = productService.findByType(type);
         } else {
@@ -100,8 +99,7 @@ public class ProductController {
     @PostMapping("/products/edit/{id}")
     public String updateProducts(@Valid @ModelAttribute("product") ProductUpdateDTO productUpdateDTO,
                                  BindingResult bindingResult,
-                                 Model model, RedirectAttributes redirectAttributes
-                                 ) {
+                                 Model model, RedirectAttributes redirectAttributes) {
         Product savedProduct;
 
         if (bindingResult.hasErrors()) {
@@ -114,7 +112,8 @@ public class ProductController {
             LOGGER.info("Product with id {} updated", savedProduct.getProdId());
         } catch (EntityNotFoundException | EntityInvalidArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "product-details"; }
+            return "product-details";
+        }
 
         return "redirect:/warehouse/products/details/{id}";
     }

@@ -32,7 +32,7 @@ public class EmployeeUpdateDTO {
     @NotBlank(message = "Email can not be null.")
     private String email;
 
-    @Pattern(regexp = "^\\+?[1-9]\\d{6,14}$", message = "Wrong phone format.")
+    @Pattern(regexp = "^\\+?[1-9]\\d{6,14}$", message = "Wrong phone number format.")
     @NotBlank(message = "Phone number can not be null.")
     private String phoneNumber;
 

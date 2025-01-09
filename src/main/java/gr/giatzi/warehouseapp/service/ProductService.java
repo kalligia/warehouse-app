@@ -15,9 +15,6 @@ import gr.giatzi.warehouseapp.repository.ProductRepository;
 import gr.giatzi.warehouseapp.repository.ProductTypeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -72,7 +69,7 @@ public class ProductService implements IProductService {
     @Override
     public void deleteProduct(Long id) throws EntityNotFoundException {
         if (!productRepository.existsById(id)) {
-            throw new IllegalArgumentException("Product with ID " + id + " does not exist.");
+            throw new EntityNotFoundException("Product", "Product with ID " + id + " does not exist.");
         }
         productRepository.deleteById(id);
     }
@@ -84,7 +81,7 @@ public class ProductService implements IProductService {
         Product existingProduct = productRepository.findByProdId(updateDTO.getId());
 
         if (existingProduct == null) {
-          //    throw new EntityNotFoundException("Product with ID " + updateDTO.getId() + " not found.");
+              throw new EntityNotFoundException("Product", "Product with ID " + updateDTO.getId() + " not found.");
         }
 
         if (updateDTO.getQuantity() != null) {

@@ -5,4 +5,5 @@ INSERT INTO product_types (id, name) VALUES
                                       (4,'Espresso Mug'),
                                       (5,'Bowl'),
                                       (6,'Cutting Board');
+
 ALTER TABLE product_types AUTO_INCREMENT = 7;

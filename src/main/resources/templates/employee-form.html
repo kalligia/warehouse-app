@@ -37,46 +37,54 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
-            <form method="POST" th:object="${employee}" th:action="${employee?.id != null ? '/warehouse/employees/edit/' + employee.id : '/warehouse/employees/add'}">
+            <form method="POST" th:object="${employee}"
+                  th:action="${employee?.id != null ? '/warehouse/employees/edit/' + employee.id : '/warehouse/employees/add'}">
                 <div class="mb-3">
                     <label for="firstname">Firstname:</label>
                     <input type="text" id="firstname" class="form-control" th:field="*{firstname}"
                            th:classappend="${#fields.hasErrors('firstname')} ? 'is-invalid'">
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('firstname')}" th:text="${#fields.errors('firstname')}"></div>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('firstname')}"
+                         th:text="${#fields.errors('firstname')}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="lastname">Lastname:</label>
                     <input type="text" id="lastname" class="form-control" th:field="*{lastname}"
                            th:classappend="${#fields.hasErrors('lastname')} ? 'is-invalid'">
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('lastname')}" th:text="${#fields.errors('lastname')}"></div>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('lastname')}"
+                         th:text="${#fields.errors('lastname')}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email">Email:</label>
                     <input type="email" id="email" class="form-control" th:field="*{email}"
                            th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')}"></div>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}"
+                         th:text="${#fields.errors('email')}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="phoneNumber">Phone Number:</label>
                     <input type="tel" id="phoneNumber" class="form-control" th:field="*{phoneNumber}"
                            th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid'">
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('phoneNumber')}" th:text="${#fields.errors('phoneNumber')}"></div>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('phoneNumber')}"
+                         th:text="${#fields.errors('phoneNumber')}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="title">Job Title:</label>
-                    <select id="title" class="form-select" th:field="*{titleId}" th:classappend="${#fields.hasErrors('titleId')} ? 'is-invalid'">
+                    <select id="title" class="form-select" th:field="*{titleId}"
+                            th:classappend="${#fields.hasErrors('titleId')} ? 'is-invalid'">
                         <option value="" selected>Select Job Title</option>
-                        <option th:each="job_title : ${jobTitles}" th:value="${job_title.id}" th:text="${job_title.name}"></option>
+                        <option th:each="job_title : ${jobTitles}" th:value="${job_title.id}"
+                                th:text="${job_title.name}"></option>
                     </select>
-                    <div class="invalid-feedback" th:if="${#fields.hasErrors('titleId')}" th:text="${#fields.errors('titleId')}"></div>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('titleId')}"
+                         th:text="${#fields.errors('titleId')}"></div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100" th:text="${employee?.id != null ? 'Update Employee' : 'Add Employee'}"></button>
-
+                <button type="submit" class="btn btn-primary w-100"
+                        th:text="${employee?.id != null ? 'Update Employee' : 'Add Employee'}"></button>
             </form>
         </main>
     </div>

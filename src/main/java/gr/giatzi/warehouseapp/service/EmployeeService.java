@@ -22,7 +22,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeService implements IEmployeeService{
+public class EmployeeService implements IEmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final JobTitleRepository jobTitleRepository;
@@ -53,7 +53,6 @@ public class EmployeeService implements IEmployeeService{
     public Page<EmployeeReadOnlyDTO> getPaginatedEmployees(int page, int size) {
 
         Pageable pageable = PageRequest.of(page, size);
-
         Page<Employee> employeePage = employeeRepository.findAll(pageable);
 
         return employeePage.map(mapper::mapToEmployeeReadOnlyDTO);
@@ -63,7 +62,7 @@ public class EmployeeService implements IEmployeeService{
     @Transactional
     public void deleteEmployee(Long id) throws EntityNotFoundException {
         if (!employeeRepository.existsById(id)) {
-            throw new IllegalArgumentException("Employee with ID " + id + " does not exist.");
+            throw new EntityNotFoundException("Employee", "Employee with ID " + id + " does not exist.");
         }
         employeeRepository.deleteById(id);
     }
@@ -84,7 +83,7 @@ public class EmployeeService implements IEmployeeService{
 
         employee.setTitle(jt);
 
-        return  employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override

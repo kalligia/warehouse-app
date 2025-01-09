@@ -6,7 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> , JpaSpecificationExecutor<Employee> {
     Employee findByEmpId(Long empId);
-
     Employee findByEmail(String email);
-
 }

@@ -16,6 +16,4 @@ public class EmployeeReadOnlyDTO {
     private String lastname;
     private String email;
     private String phoneNumber;
-//    private LocalDateTime createdAt;
-//    private LocalDateTime updatedAt;
 }

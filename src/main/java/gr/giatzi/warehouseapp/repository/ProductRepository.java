@@ -8,9 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
-    Product findByProdId (Long id);
-
+   Product findByProdId (Long id);
    List<Product> findByType(ProductType type);
-
    Product findByName(String name);
 }

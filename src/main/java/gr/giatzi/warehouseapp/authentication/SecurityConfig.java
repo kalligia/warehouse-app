@@ -18,9 +18,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "index.html").permitAll()
-                        .requestMatchers( "login.html").permitAll()
-                                .requestMatchers("/warehouse/products").authenticated()
+                        .requestMatchers("/", "index.html").authenticated()
+                        .requestMatchers("/warehouse/products").authenticated()
                         .requestMatchers("/warehouse/products/**").authenticated()
                         .requestMatchers("/warehouse/employees").authenticated()
                         .requestMatchers("/warehouse/employees/add").hasAnyAuthority(Role.MANAGER.name(), Role.ADMIN.name())
@@ -33,7 +32,6 @@ public class SecurityConfig {
                         .requestMatchers("/img/**").permitAll()
                         .requestMatchers("/uploads/**").authenticated()
                         .anyRequest().authenticated()
-  //                             .anyRequest().permitAll()
 
               )
                 .formLogin(formLogin -> formLogin
