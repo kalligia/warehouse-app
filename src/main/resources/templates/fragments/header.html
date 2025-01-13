@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
 <body>
@@ -9,14 +8,10 @@
     <div class="outer">
         <div class="items">
             <a th:href="@{/}">
-                <img class="logo rounded-circle" th:src="@{/img/warehouse-logo.webp}" alt="Warehouse Logo" >
+                <img class="logo rounded-circle" th:src="@{/img/warehouse-logo.webp}" alt="Warehouse Logo">
             </a>
-            <span class="title ">Giatzitzoglou Warehouse</span>
+            <span class="title ">Warehouse Application</span>
         </div>
-<!--        <div class="logout">-->
-<!--&lt;!&ndash;            <span sec:authorize="isAuthenticated()" th:text="${#authentication.name}"></span>&ndash;&gt;-->
-<!--            <a class="btn btn-outline-light rounded-pill text-light" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>-->
-<!--        </div>-->
     </div>
 </header>
 </body>

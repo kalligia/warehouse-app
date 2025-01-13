@@ -12,20 +12,8 @@ import lombok.Setter;
 @Setter
 public class ProductUpdateDTO {
 
- //   private String name;
-
-    @NotNull(message = "Id must exist.")
     private Long id;
 
-//    @NotNull(message = "Product type can not ne null.")
-//    private Long typeId;
-//
-//    @NotNull(message = "Color can not ne null.")
-//    private String color;
-
+    @NotNull(message = "Quantity can not be null.")
     private Long quantity;
-
-  //  private Long materialId;
-
-  //  private MultipartFile photo;
 }

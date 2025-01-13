@@ -13,13 +13,11 @@ public interface IEmployeeService {
     Employee saveEmployee (EmployeeInsertDTO employeeInsertDTO)
         throws EntityAlreadyExistsException, EntityInvalidArgumentException ;
 
-    public Page<EmployeeReadOnlyDTO> getPaginatedEmployees(int page, int size);
+    Page<EmployeeReadOnlyDTO> getPaginatedEmployees(int page, int size);
 
     void deleteEmployee(Long id) throws EntityNotFoundException;
 
-    Employee updateEmployee(EmployeeUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException;
+    Employee updateEmployee(EmployeeUpdateDTO updateDTO) throws EntityNotFoundException, EntityInvalidArgumentException, EntityAlreadyExistsException;
 
     Employee findById(Long id);
-
-
 }

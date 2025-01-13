@@ -21,6 +21,7 @@ public class Product extends AbstractEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long prodId;
 
+    @Column(unique = true)
     private String name;
 
     @ManyToOne

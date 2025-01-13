@@ -12,7 +12,6 @@ import java.util.List;
 public class JobTitleService implements IJobTitleService {
     private final JobTitleRepository jtRepository;
 
-
     @Override
     public List<JobTitle> findAllJobTitles() {
         return  jtRepository.findAll();

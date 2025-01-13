@@ -18,9 +18,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
-public class EmployeeService implements IEmployeeService{
+public class EmployeeService implements IEmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final JobTitleRepository jobTitleRepository;
@@ -31,9 +33,8 @@ public class EmployeeService implements IEmployeeService{
     public Employee saveEmployee(EmployeeInsertDTO employeeInsertDTO)
             throws EntityAlreadyExistsException, EntityInvalidArgumentException {
 
-        if (employeeRepository.findByAmka(employeeInsertDTO.getAmka()).isPresent()) {
-            throw new EntityAlreadyExistsException("Employee", "Employee with amka: "
-                    + employeeInsertDTO.getAmka() + " already exists.");
+        if (employeeRepository.findByEmail(employeeInsertDTO.getEmail()) != null) {
+            throw new EntityAlreadyExistsException("Employee", "Employee with email: " + employeeInsertDTO.getEmail() + " already exists.");
         }
 
         Employee employee = mapper.mapToEmployeeEntity(employeeInsertDTO);
@@ -45,19 +46,15 @@ public class EmployeeService implements IEmployeeService{
 
         return employeeRepository.save(employee);
 
-        //TODO other methods like update and delete
     }
 
     @Override
     @Transactional
     public Page<EmployeeReadOnlyDTO> getPaginatedEmployees(int page, int size) {
-        // Create a Pageable object with the requested page number and size
-        Pageable pageable = PageRequest.of(page, size);
 
-        // Fetch paginated list of teachers
+        Pageable pageable = PageRequest.of(page, size);
         Page<Employee> employeePage = employeeRepository.findAll(pageable);
 
-        // Map each Teacher entity to TeacherReadOnlyDTO
         return employeePage.map(mapper::mapToEmployeeReadOnlyDTO);
     }
 
@@ -65,7 +62,7 @@ public class EmployeeService implements IEmployeeService{
     @Transactional
     public void deleteEmployee(Long id) throws EntityNotFoundException {
         if (!employeeRepository.existsById(id)) {
-            throw new IllegalArgumentException("Employee with ID " + id + " does not exist.");
+            throw new EntityNotFoundException("Employee", "Employee with ID " + id + " does not exist.");
         }
         employeeRepository.deleteById(id);
     }
@@ -73,7 +70,11 @@ public class EmployeeService implements IEmployeeService{
     @Override
     @Transactional
     public Employee updateEmployee(EmployeeUpdateDTO updateDTO)
-            throws EntityNotFoundException, EntityInvalidArgumentException {
+            throws EntityNotFoundException, EntityInvalidArgumentException, EntityAlreadyExistsException {
+
+        if (employeeRepository.findByEmail(updateDTO.getEmail()) != null && !Objects.equals(employeeRepository.findByEmail(updateDTO.getEmail()).getEmpId(), updateDTO.getId())) {
+            throw new EntityAlreadyExistsException("Employee", "Employee with email: " + updateDTO.getEmail() + " already exists.");
+        }
 
         Employee employee = mapper.mapToEmployeeEntity(updateDTO);
 
@@ -82,7 +83,7 @@ public class EmployeeService implements IEmployeeService{
 
         employee.setTitle(jt);
 
-        return  employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override
