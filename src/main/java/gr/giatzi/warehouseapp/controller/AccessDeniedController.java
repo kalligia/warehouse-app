@@ -4,6 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * Responsible for handling requests related to access denial.
+ * It displays an error page when a user attempts to access a resource they do not have permission for.
+ */
 @Controller
 public class AccessDeniedController {
 

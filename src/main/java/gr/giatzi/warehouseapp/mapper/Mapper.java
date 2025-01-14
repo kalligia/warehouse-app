@@ -10,6 +10,10 @@ import gr.giatzi.warehouseapp.core.enums.Role;
 
 import java.io.IOException;
 
+/**
+ * The {@code Mapper} class is responsible for converting between DTOs
+ * and entities within the application.
+ */
 @Component
 public class Mapper {
 

@@ -6,28 +6,30 @@ This application is developed with Spring Boot, uses MySQL as the database and G
 
 The application runs in a local environment, for which you need to install the following tools:
 
-- Java 17+ https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html
-- Gradle https://gradle.org/install/
-- MySQL Server https://dev.mysql.com/downloads/installer/ 
+- [Java 17+](https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html)
+- [Gradle](https://gradle.org/install/)
+- [MySQL Server](https://dev.mysql.com/downloads/installer/) 
 
-## Clone the repository 
 
-Download the source code, by running the command 'git clone https://github.com/kalligia/warehouse-app'. And then run the command
-'cd warehouse-app'.
+After having cloned the project in your local pc, open a Command Prompt (if using Windows), or a Terminal (if using Linux/Mac), and follow the next steps:
 
-## Database setup
+## Setup the database
 
-- For Windows users: Open a Command Prompt and navigate to the MySQL installation folder. The default path is C:\Program Files\MySQL\MySQL Server X.X\bin. / For Linux/Mac users: Open a Terminal navigate to /usr/bin/ or /usr/local/mysql/bin/
-- Connect to the server as a root user, using the command 'mysql -u root -p;'
-- Run the following command to create the database schema 'CREATE DATABASE warehousedb;'
-- Create a user 'CREATE USER 'warehousedbuser'@'%' IDENTIFIED BY 'XXXX';' (Replace 'XXXX' with your password). Grant the privileges on the schema that you created 'GRANT ALL PRIVILEGES ON warehousedb.* TO 'warehousedbuser'@'%'; FLUSH PRIVILEGES; '
-- Go to the '.env' file of the project and update the variables with the values you used (wherever you see ###)
+- Navigate to the MySQL installation folder. For Windows users, the default path is C:\Program Files\MySQL\MySQL Server X.X\bin (replace X.X with the version you use). For Linux/Mac users, navigate to /usr/bin/ or /usr/local/mysql/bin/.
+- Run the following commands: 
+  - `mysql -u root -p` and enter the root password, to connect to the server as a root user.
+  - `CREATE DATABASE warehousedb;` to create the database schema.
+  - `CREATE USER 'warehousedbuser'@'%' IDENTIFIED BY 'XXXX';` (replace 'XXXX' with your password) to create a user. 
+  - `GRANT ALL PRIVILEGES ON warehousedb.* TO 'warehousedbuser'@'%'; FLUSH PRIVILEGES;` to grant the privileges on the schema that you created.
+  - `exit`
+- Go to the '.env' file of the project, update the variables with the password you used, and save it.
 
 ## Run the project
 
-- For Windows: Open a command prompt, navigate to the project folder and run the command 'gradlew bootRun'
-- For Linux/Mac: Open a terminal, navigate to the project folder and run the command './gradlew bootRun'
+- Navigate to the project folder and use the command `gradlew bootRun` to run the project.
+- Stop the execution by pressing `Ctrl + C` and then `Y`.
+- Go to the 'application.properties' file of the project. Uncomment the indicated lines, save it and run the project one more time. Then, comment these lines again and save the file.
 
-The application is available in the address http://localhost:8080
+The application is available in the address http://localhost:8080.
 
 

@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-main {
-    background-image: url('../img/index-photo.jpg'); /* Διόρθωσε τη διαδρομή */
-    background-size: cover;
-   /* background-position: center; */
-    background-repeat: no-repeat;
-}
-=======
-/* CSS για το main */
+
 main {
     background-image: url("/img/index2.webp");
     background-size: cover;
@@ -24,4 +16,8 @@ main {
 main h1, main h4, main h5 {
     z-index: 10;
 }
->>>>>>> auth
+
+main h1, main h4, main h5 {
+    z-index: 10;
+}
+
