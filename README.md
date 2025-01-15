@@ -30,6 +30,6 @@ After having cloned the project in your local pc, open a Command Prompt (if usin
 - Stop the execution by pressing `Ctrl + C` and then `Y`.
 - Go to the 'application.properties' file of the project. Uncomment the indicated lines, save it and run the project one more time. Then, comment these lines again and save the file.
 
-The application is available in the address http://localhost:8080.
+You are ready to use the application, which is available in the address http://localhost:8080.
 
 
