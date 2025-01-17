@@ -83,20 +83,31 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/delete/{id}")
-    public String deleteEmployee(@PathVariable Long id, RedirectAttributes redirectAttributes)
-            throws EntityNotFoundException {
-        employeeService.deleteEmployee(id);
-        redirectAttributes.addFlashAttribute("successMessage", "Employee deleted successfully!");
-        return "redirect:/warehouse/employees";
+    public String deleteEmployee(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
+
+        try {
+            employeeService.deleteEmployee(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Employee deleted successfully!");
+            return "redirect:/warehouse/employees";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error/item-not-found";
+        }
     }
 
     @GetMapping("/employees/edit/{id}")
     public String getEmployeeForm(@PathVariable Long id, Model model) {
-        Employee employee = employeeService.findById(id);
-        EmployeeUpdateDTO employeeUpdateDTO = mapper.mapToEmployeeUpdateDTO(employee);
-        model.addAttribute("employee", employeeUpdateDTO);
-        model.addAttribute("jobTitles", jtService.findAllJobTitles());
-        return "employee-form";
+
+        try {
+            Employee employee = employeeService.findById(id);
+            EmployeeUpdateDTO employeeUpdateDTO = mapper.mapToEmployeeUpdateDTO(employee);
+            model.addAttribute("employee", employeeUpdateDTO);
+            model.addAttribute("jobTitles", jtService.findAllJobTitles());
+            return "employee-form";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error/item-not-found";
+        }
     }
 
     @PostMapping("/employees/edit/{id}")

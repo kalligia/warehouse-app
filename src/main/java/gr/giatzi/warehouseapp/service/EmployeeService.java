@@ -87,7 +87,12 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public Employee findById(Long id) {
+    public Employee findById(Long id) throws EntityNotFoundException {
+
+        if (!employeeRepository.existsById(id)) {
+            throw new EntityNotFoundException("Employee", "Employee with ID " + id + " does not exist.");
+        }
+
         return employeeRepository.findByEmpId(id);
     }
 

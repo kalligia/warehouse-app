@@ -62,7 +62,12 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public ProductReadOnlyDTO findById(Long id) {
+    public ProductReadOnlyDTO findById(Long id) throws EntityNotFoundException{
+
+        if (!productRepository.existsById(id)) {
+            throw new EntityNotFoundException("Product", "Product with ID " + id + " does not exist.");
+        }
+
         return mapper.mapToProductReadOnlyDTO(productRepository.findByProdId(id));
     }
 

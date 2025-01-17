@@ -91,9 +91,20 @@ public class ProductController {
 
     @GetMapping("/products/details/{id}")
     public String getProductForm(@PathVariable Long id, Model model) {
-        ProductReadOnlyDTO productReadOnlyDTO = productService.findById(id);
-        model.addAttribute("product", productReadOnlyDTO);
-        return "product-details";
+
+        try {
+            ProductReadOnlyDTO productReadOnlyDTO = productService.findById(id);
+            model.addAttribute("product", productReadOnlyDTO);
+            return "product-details";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error/item-not-found";
+        }
+    }
+
+    @GetMapping("/products/edit/{id}")
+    public String getProductForm(@PathVariable Long id) {
+        return "redirect:/warehouse/products/details/{id}";
     }
 
     @PostMapping("/products/edit/{id}")
@@ -112,17 +123,22 @@ public class ProductController {
             LOGGER.info("Product with id {} updated", savedProduct.getProdId());
         } catch (EntityNotFoundException | EntityInvalidArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "product-details";
+            return "error/item-not-found";
         }
 
         return "redirect:/warehouse/products/details/{id}";
     }
 
     @GetMapping("/products/delete/{id}")
-    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes)
-            throws EntityNotFoundException {
-        productService.deleteProduct(id);
-        redirectAttributes.addFlashAttribute("successMessage", "Product deleted successfully!");
-        return "redirect:/warehouse/products";
+    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
+
+        try {
+            productService.deleteProduct(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Product deleted successfully!");
+            return "redirect:/warehouse/products";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error/item-not-found";
+        }
     }
 }

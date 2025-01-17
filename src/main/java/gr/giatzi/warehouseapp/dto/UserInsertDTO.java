@@ -12,12 +12,12 @@ import lombok.Setter;
 @Setter
 public class UserInsertDTO {
 
+    @Size(min = 3, max = 20, message = "Username must be between 3 - 20 characters.")
     private String username;
 
-    @NotNull
-   // @Pattern(regexp = "^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\\d)(?=.*?[@$!%*?&]).{5,}$", message = "Invalid password")
+    @Pattern(regexp = "^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\\d)(?=.*?[@$!%*?&]).{5,}$", message = "Invalid password")
     private String password;
 
-    @NotNull(message = "Please select a role.")
+    @NotBlank(message = "Please select a role.")
     private String role;
 }

@@ -33,16 +33,28 @@
                        th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'">
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}"
                      th:text="${#fields.errors('password')}"></div>
+                <small id="passwordHelp" class="form-text text-muted">
+                    The password must include:
+                    <ul id="password-requirements" class="list-unstyled">
+                        <li id="length">At least 5 characters</li>
+                        <li id="lowercase">1 lowercase letter</li>
+                        <li id="uppercase">1 uppercase letter</li>
+                        <li id="digit">1 number</li>
+                        <li id="special">1 special character (@$!%*?&)</li>
+                    </ul>
+                </small>
             </div>
 
             <div>
                 <label for="role" class="form-label">Role:</label>
-                <select class="form-select" th:field="*{role}" id="role">
+                <select class="form-select" th:field="*{role}" id="role" th:classappend="${#fields.hasErrors('role')} ? 'is-invalid'">
                     <option value="" selected>Select Role</option>
                     <option value="MANAGER">Manager</option>
                     <option value="EMPLOYEE">Employee</option>
                     <option value="ADMIN">Admin</option>
                 </select>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('role')}"
+                     th:text="${#fields.errors('role')}"></div>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 mt-3" th:text="${'Register'}"></button>
@@ -55,4 +67,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 

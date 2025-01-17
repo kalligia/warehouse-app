@@ -18,7 +18,7 @@ public interface IProductService {
 
     List<ProductReadOnlyDTO> getAllProducts();
 
-    ProductReadOnlyDTO findById(Long id);
+    ProductReadOnlyDTO findById(Long id) throws EntityNotFoundException;;
 
     void deleteProduct(Long id) throws EntityNotFoundException;
 

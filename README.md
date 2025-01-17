@@ -22,7 +22,7 @@ After having cloned the project in your local pc, open a Command Prompt (if usin
   - `CREATE USER 'warehousedbuser'@'%' IDENTIFIED BY 'XXXX';` (replace 'XXXX' with your password) to create a user. 
   - `GRANT ALL PRIVILEGES ON warehousedb.* TO 'warehousedbuser'@'%'; FLUSH PRIVILEGES;` to grant the privileges on the schema that you created.
   - `exit`
-- Go to the '.env' file of the project, update the variables with the password you used, and save it.
+- Go to the '.env' file of the project, update the variable `MYSQL_PASSWORD` with the password you used, and save it.
 
 ## Run the project
 
