@@ -19,16 +19,16 @@ After having cloned the project in your local pc, open a Command Prompt (if usin
 - Run the following commands: 
   - `mysql -u root -p` and enter the root password, to connect to the server as a root user.
   - `CREATE DATABASE warehousedb;` to create the database schema.
-  - `CREATE USER 'warehousedbuser'@'%' IDENTIFIED BY 'XXXX';` (replace 'XXXX' with your password) to create a user. 
+  - `CREATE USER 'warehousedbuser'@'%' IDENTIFIED BY 'XXXX';` (replace 'XXXX' with a password of your choice) to create a user. 
   - `GRANT ALL PRIVILEGES ON warehousedb.* TO 'warehousedbuser'@'%'; FLUSH PRIVILEGES;` to grant the privileges on the schema that you created.
   - `exit`
-- Go to the '.env' file of the project, update the variable `MYSQL_PASSWORD` with the password you used, and save it.
+- Open the '.env' file of the project, update the variable `MYSQL_PASSWORD` with the schema user password you used, and save it.
 
 ## Run the project
 
 - Navigate to the project folder and use the command `gradlew bootRun` to run the project.
 - Stop the execution by pressing `Ctrl + C` and then `Y`.
-- Go to the 'application.properties' file of the project. Uncomment the indicated lines, save it and run the project one more time. Then, comment these lines again and save the file.
+- Open the 'application.properties' file of the project. Uncomment the indicated lines, save it and run the project one more time. Then, comment out these lines again and save the file.
 
 You are ready to use the application, which is available in the address http://localhost:8080.
 
