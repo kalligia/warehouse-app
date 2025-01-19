@@ -1,5 +1,6 @@
 package gr.giatzi.warehouseapp.controller;
 
+import gr.giatzi.warehouseapp.core.exceptions.EntityAlreadyExistsException;
 import gr.giatzi.warehouseapp.core.exceptions.EntityNotFoundException;
 import gr.giatzi.warehouseapp.dto.UserInsertDTO;
 import gr.giatzi.warehouseapp.dto.UserReadOnlyDTO;
@@ -9,6 +10,8 @@ import gr.giatzi.warehouseapp.repository.UserRepository;
 import gr.giatzi.warehouseapp.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,8 @@ public class UserController {
     private final UserService userService;
     private final Mapper mapper;
     private final UserRepository userRepository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
 
     @GetMapping("/users/register")
     public String getUserForm(Model model) {
@@ -39,15 +44,23 @@ public class UserController {
     public String insertUser(@Valid @ModelAttribute("userInsertDTO")
                              UserInsertDTO userInsertDTO,
                              BindingResult bindingResult,
-                             Model model, RedirectAttributes redirectAttributes
-    ) {
+                             Model model, RedirectAttributes redirectAttributes) {
+        User savedUser;
+
         if (bindingResult.hasErrors()) {
             return "register";
         }
 
-        redirectAttributes.addFlashAttribute("successMessage", "User registered successfully.");
-        User user = mapper.mapToUserEntity(userInsertDTO);
-        userService.saveUser(user);
+        try {
+            savedUser = userService.saveUser(userInsertDTO);
+            redirectAttributes.addFlashAttribute("successMessage", "User registered successfully.");
+            LOGGER.info("User with id {} added", savedUser.getId());
+        } catch (EntityAlreadyExistsException e) {
+            LOGGER.error("User with username {} not added", userInsertDTO.getUsername());
+            redirectAttributes.addFlashAttribute("warningMessage", "User with username " + userInsertDTO.getUsername() + " already exists. Please use another username.");
+            model.addAttribute("errorMessage", e.getMessage());
+            return "redirect:/warehouse/users/register"; }
+
         return "redirect:/login";
     }
 
@@ -72,10 +85,15 @@ public class UserController {
     }
 
     @GetMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes)
-            throws EntityNotFoundException {
-        userService.deleteUser(id);
-        redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
-        return "redirect:/warehouse/users";
+    public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
+
+        try {
+            userService.deleteUser(id);
+            redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
+            return "redirect:/warehouse/users";
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error/item-not-found";
+        }
     }
 }

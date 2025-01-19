@@ -1,6 +1,5 @@
 package gr.giatzi.warehouseapp.repository;
 
-import gr.giatzi.warehouseapp.core.enums.Role;
 import gr.giatzi.warehouseapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

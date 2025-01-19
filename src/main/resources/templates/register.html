@@ -17,6 +17,12 @@
 <div class="container flex-grow-1 d-flex justify-content-center align-items-center">
     <div class="login-form-container">
         <h2 class="text-center" th:text="${'Register'}"></h2>
+
+        <div th:if="${warningMessage}" class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span th:text="${warningMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <form method="POST" th:object="${userInsertDTO}" th:action="${'/warehouse/users/register'}">
             <div class="mb-3">
                 <label for="username" class="form-label">Username:</label>

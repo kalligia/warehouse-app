@@ -1,7 +1,9 @@
 package gr.giatzi.warehouseapp.service;
 
 
+import gr.giatzi.warehouseapp.core.exceptions.EntityAlreadyExistsException;
 import gr.giatzi.warehouseapp.core.exceptions.EntityNotFoundException;
+import gr.giatzi.warehouseapp.dto.UserInsertDTO;
 import gr.giatzi.warehouseapp.dto.UserReadOnlyDTO;
 import gr.giatzi.warehouseapp.mapper.Mapper;
 import gr.giatzi.warehouseapp.model.User;
@@ -27,7 +29,13 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public User saveUser(User user) {
+    public User saveUser(UserInsertDTO userInsertDTO) throws EntityAlreadyExistsException {
+
+        if (userRepository.findByUsername(userInsertDTO.getUsername()).isPresent()) {
+            throw new EntityAlreadyExistsException("User", "User with username: " + userInsertDTO.getUsername() + " already exists.");
+        }
+
+        User user = mapper.mapToUserEntity(userInsertDTO);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -57,7 +65,7 @@ public class UserService implements IUserService {
         }
 
         if (!userRepository.existsById(id)) {
-            throw new IllegalArgumentException("User with ID " + id + " does not exist.");
+            throw new EntityNotFoundException("User", "User with ID " + id + " does not exist.");
         }
         userRepository.deleteById(id);
     }
